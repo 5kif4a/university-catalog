@@ -9,6 +9,7 @@ import {
   Grid,
   Paper,
   Divider,
+  Stack,
 } from '@mui/material';
 import {
   LocationOn,
@@ -88,7 +89,11 @@ export default function UniversityDetailPage() {
               Back to Universities
             </Button>
 
-            <Box className="flex flex-col md:flex-row gap-8 items-start">
+            <Stack
+              direction={{ xs: 'column', md: 'row' }}
+              spacing={8}
+              alignItems="flex-start"
+            >
               {/* University Logo */}
               <Box
                 sx={{
@@ -115,7 +120,7 @@ export default function UniversityDetailPage() {
               </Box>
 
               {/* University Header Info */}
-              <Box className="flex-1">
+              <Box sx={{ flexGrow: 1 }}>
                 <Typography
                   variant="h3"
                   component="h1"
@@ -124,25 +129,25 @@ export default function UniversityDetailPage() {
                   {university.name}
                 </Typography>
 
-                <Box className="flex flex-wrap gap-4 mb-5">
+                <Stack direction="row" flexWrap="wrap" spacing={2} gap={2} sx={{ mb: 5 }}>
                   {/* Location */}
-                  <Box className="flex items-center gap-1.5">
+                  <Stack direction="row" alignItems="center" spacing={1.5}>
                     <LocationOn sx={{ fontSize: 22, color: 'text.secondary' }} />
                     <Typography variant="body1" color="text.secondary">
                       {university.city}, {university.country}
                     </Typography>
-                  </Box>
+                  </Stack>
 
                   {/* Ranking */}
                   {university.ranking && (
-                    <Box className="flex items-center gap-1.5">
+                    <Stack direction="row" alignItems="center" spacing={1.5}>
                       <EmojiEvents sx={{ fontSize: 22, color: '#f59e0b' }} />
                       <Typography variant="body1" sx={{ fontWeight: 500 }}>
                         Ranked #{university.ranking}
                       </Typography>
-                    </Box>
+                    </Stack>
                   )}
-                </Box>
+                </Stack>
 
                 {/* Website Link */}
                 {university.website && (
@@ -159,13 +164,13 @@ export default function UniversityDetailPage() {
                 )}
 
                 {/* Specialties */}
-                <Box className="flex flex-wrap gap-2">
+                <Stack direction="row" flexWrap="wrap" gap={1}>
                   {university.specialty_names.map((specialty) => (
                     <Chip key={specialty} label={specialty} color="primary" variant="outlined" />
                   ))}
-                </Box>
+                </Stack>
               </Box>
-            </Box>
+            </Stack>
           </Container>
         </Box>
 
@@ -190,13 +195,13 @@ export default function UniversityDetailPage() {
               {university.requirements && university.requirements.length > 0 && (
                 <Card sx={{ borderRadius: 4 }}>
                   <CardContent sx={{ p: 4 }}>
-                    <Box className="flex items-center gap-2 mb-4">
+                    <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 4 }}>
                       <Assignment color="primary" />
                       <Typography variant="h5" sx={{ fontWeight: 500 }}>
                         Requirements by Specialty
                       </Typography>
-                    </Box>
-                    <Box className="space-y-4">
+                    </Stack>
+                    <Stack spacing={4}>
                       {university.requirements.map((req) => (
                         <Paper
                           key={req.specialty_id}
@@ -216,7 +221,7 @@ export default function UniversityDetailPage() {
                             {req.specialty_name}
                           </Typography>
 
-                          <Box className="space-y-2">
+                          <Stack spacing={2}>
                             <Box>
                               <Typography
                                 variant="body2"
@@ -239,7 +244,7 @@ export default function UniversityDetailPage() {
                                 >
                                   Required Exams
                                 </Typography>
-                                <Box className="flex flex-wrap gap-2">
+                                <Stack direction="row" flexWrap="wrap" gap={1}>
                                   {req.exams.map((exam) => (
                                     <Chip
                                       key={exam}
@@ -249,7 +254,7 @@ export default function UniversityDetailPage() {
                                       sx={{ fontWeight: 400 }}
                                     />
                                   ))}
-                                </Box>
+                                </Stack>
                               </Box>
                             )}
 
@@ -267,10 +272,10 @@ export default function UniversityDetailPage() {
                                 </Typography>
                               </Box>
                             )}
-                          </Box>
+                          </Stack>
                         </Paper>
                       ))}
-                    </Box>
+                    </Stack>
                   </CardContent>
                 </Card>
               )}
@@ -282,12 +287,12 @@ export default function UniversityDetailPage() {
               {university.tuition_fee_usd && (
                 <Card sx={{ mb: 4, borderRadius: 4 }}>
                   <CardContent sx={{ p: 3 }}>
-                    <Box className="flex items-center gap-2 mb-3">
+                    <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 3 }}>
                       <AttachMoney color="primary" />
                       <Typography variant="h6" sx={{ fontWeight: 500 }}>
                         Annual Tuition
                       </Typography>
-                    </Box>
+                    </Stack>
                     <Divider sx={{ mb: 3 }} />
                     <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
                       Estimated Annual Cost
@@ -303,12 +308,12 @@ export default function UniversityDetailPage() {
               {university.student_count && (
                 <Card sx={{ mb: 4, borderRadius: 4 }}>
                   <CardContent sx={{ p: 3 }}>
-                    <Box className="flex items-center gap-2 mb-3">
+                    <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 3 }}>
                       <People color="primary" />
                       <Typography variant="h6" sx={{ fontWeight: 500 }}>
                         Student Body
                       </Typography>
-                    </Box>
+                    </Stack>
                     <Divider sx={{ mb: 3 }} />
                     <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
                       Total Students
@@ -324,12 +329,12 @@ export default function UniversityDetailPage() {
               {university.acceptance_rate && (
                 <Card sx={{ mb: 4, borderRadius: 4 }}>
                   <CardContent sx={{ p: 3 }}>
-                    <Box className="flex items-center gap-2 mb-3">
+                    <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 3 }}>
                       <TrendingUp color="primary" />
                       <Typography variant="h6" sx={{ fontWeight: 500 }}>
                         Acceptance Rate
                       </Typography>
-                    </Box>
+                    </Stack>
                     <Divider sx={{ mb: 3 }} />
                     <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
                       Admission Rate

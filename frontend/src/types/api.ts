@@ -14,7 +14,7 @@ export interface UniversityRequirement {
 
 // University (from backend API)
 export interface University {
-  id: string;
+  _id: string; // MongoDB ObjectId as string
   name: string;
   country: string;
   city: string;
@@ -32,7 +32,7 @@ export interface University {
 
 // Specialty (from backend API)
 export interface Specialty {
-  id: string;
+  _id: string; // MongoDB ObjectId as string
   name: string;
   description?: string;
   category?: string;

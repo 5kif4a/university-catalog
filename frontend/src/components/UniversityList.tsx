@@ -1,9 +1,9 @@
-import { useState, useMemo } from 'react';
-import { Box, Typography, Grid } from '@mui/material';
-import { motion } from 'framer-motion';
-import UniversityCard from './UniversityCard';
-import UniversityFilters from './UniversityFilters';
-import type { University, UniversityFilters as Filters } from '@/types/api';
+import { useState, useMemo } from "react";
+import { Box, Typography, Grid } from "@mui/material";
+import { motion } from "framer-motion";
+import UniversityCard from "./UniversityCard";
+import UniversityFilters from "./UniversityFilters";
+import type { University, UniversityFilters as Filters } from "@/types/api";
 
 /**
  * UniversityList Component
@@ -64,7 +64,7 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.4,
-      ease: 'easeOut',
+      ease: "easeOut",
     },
   },
 };
@@ -103,10 +103,10 @@ export default function UniversityList({
         sx={{
           mb: 10,
           p: 4,
-          backgroundColor: 'background.paper',
+          backgroundColor: "background.paper",
           borderRadius: 4,
-          border: '1px solid',
-          borderColor: 'divider',
+          border: "1px solid",
+          borderColor: "divider",
         }}
       >
         <UniversityFilters
@@ -127,9 +127,11 @@ export default function UniversityList({
           aria-live="polite"
         >
           {filteredUniversities.length === 0
-            ? 'No universities found'
+            ? "No universities found"
             : `${filteredUniversities.length} ${
-                filteredUniversities.length === 1 ? 'University' : 'Universities'
+                filteredUniversities.length === 1
+                  ? "University"
+                  : "Universities"
               } Found`}
         </Typography>
         {filteredUniversities.length > 0 && (
@@ -141,42 +143,44 @@ export default function UniversityList({
 
       {/* University Grid */}
       {filteredUniversities.length > 0 ? (
-        <Grid
-          container
-          spacing={4}
+        <Box
           component={motion.div}
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
-          {filteredUniversities.map((university) => (
-            <Grid
-              item
-              xs={12}
-              sm={6}
-              lg={4}
-              key={university.id}
-              component={motion.div}
-              variants={itemVariants}
-            >
-              <UniversityCard university={university} />
-            </Grid>
-          ))}
-        </Grid>
+          <Grid container spacing={3}>
+            {filteredUniversities.map((university) => (
+              <Grid key={university._id} size={{ xs: 12, sm: 6, md: 4 }}>
+                <Box
+                  component={motion.div}
+                  variants={itemVariants}
+                  sx={{ height: "100%" }}
+                >
+                  <UniversityCard university={university} />
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
       ) : (
         // Empty State
         <Box
           sx={{
-            textAlign: 'center',
+            textAlign: "center",
             py: 12,
             px: 4,
-            backgroundColor: 'background.paper',
+            backgroundColor: "background.paper",
             borderRadius: 4,
-            border: '1px solid',
-            borderColor: 'divider',
+            border: "1px solid",
+            borderColor: "divider",
           }}
         >
-          <Typography variant="h6" color="text.secondary" sx={{ mb: 1.5, fontWeight: 500 }}>
+          <Typography
+            variant="h6"
+            color="text.secondary"
+            sx={{ mb: 1.5, fontWeight: 500 }}
+          >
             No universities match your filters
           </Typography>
           <Typography variant="body2" color="text.secondary">

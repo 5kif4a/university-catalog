@@ -9,7 +9,7 @@ router = APIRouter(prefix="/ai", tags=["AI Agent"])
 class RecommendationRequest(BaseModel):
     session_id: str = Field(..., description="Unique session identifier for context tracking")
     query: str = Field(..., description="User's question or requirements")
-    user_score: Optional[float] = Field(None, ge=0, le=800, description="User's test score (SAT/equivalent)")
+    user_score: Optional[float] = Field(None, ge=0, le=1600, description="User's test score (SAT/equivalent)")
     preferred_country: Optional[str] = Field(None, description="Preferred country")
     preferred_specialty: Optional[str] = Field(None, description="Preferred field of study")
 
@@ -49,15 +49,15 @@ async def recommend_universities(request: RecommendationRequest):
     AI-powered university recommendation endpoint.
 
     This endpoint uses:
-    - Claude (Anthropic) for intelligent analysis and recommendations
-    - Context7 as a memory layer to track user preferences and history
+    - OpenAI GPT-4 for intelligent analysis and recommendations
+    - In-memory session storage to track conversation history
     - MongoDB for university data retrieval
 
     The AI agent will:
-    1. Retrieve past interactions from Context7 (if any)
+    1. Retrieve past interactions from session storage
     2. Fetch relevant universities from the database
-    3. Use Claude to analyze and recommend universities
-    4. Store the interaction in Context7 for future reference
+    3. Use GPT-4 to analyze and recommend universities
+    4. Store the interaction in session for future reference
     """
     result = await ai_agent.recommend_universities(
         session_id=request.session_id,
@@ -81,14 +81,14 @@ async def compare_universities(request: ComparisonRequest):
     """
     Compare multiple universities with AI analysis.
 
-    Uses Claude to provide detailed comparison based on:
+    Uses OpenAI GPT-4 to provide detailed comparison based on:
     - Rankings
     - Tuition fees
     - Acceptance rates
     - Program strength
     - Requirements
 
-    Stores comparison in Context7 for session tracking.
+    Stores comparison in session for conversation tracking.
     """
     result = await ai_agent.compare_universities(
         session_id=request.session_id,
@@ -108,20 +108,19 @@ async def compare_universities(request: ComparisonRequest):
 @router.get("/health")
 async def ai_health_check():
     """
-    Check AI agent health and Context7 connectivity.
+    Check AI agent health and OpenAI connectivity.
     """
-    context7_enabled = ai_agent.context7.enabled
-    anthropic_configured = bool(ai_agent.client.api_key)
+    openai_configured = bool(ai_agent.client.api_key)
 
     return {
-        "status": "operational" if (context7_enabled and anthropic_configured) else "degraded",
-        "context7_enabled": context7_enabled,
-        "anthropic_configured": anthropic_configured,
+        "status": "operational" if openai_configured else "degraded",
+        "openai_configured": openai_configured,
         "model": ai_agent.model,
+        "session_storage": "in-memory",
         "capabilities": [
             "university_recommendations",
             "university_comparison",
-            "context_tracking",
+            "conversation_tracking",
             "personalized_advice"
         ]
     }

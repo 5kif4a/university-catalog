@@ -8,6 +8,6 @@ import UniversitiesPage from '@/pages/UniversitiesPage';
  *
  * Path: /universities
  */
-export const Route = createFileRoute('/universities')({
+export const Route = createFileRoute('/universities/')({
   component: UniversitiesPage,
 });

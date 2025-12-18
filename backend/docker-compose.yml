@@ -52,9 +52,6 @@ services:
     environment:
       - MONGODB_URL=mongodb://admin:admin123@mongodb:27017
       - DATABASE_NAME=university_catalog
-      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
-      - CONTEXT7_API_KEY=${CONTEXT7_API_KEY:-}
-      - CONTEXT7_BASE_URL=${CONTEXT7_BASE_URL:-https://api.context7.io}
     volumes:
       - .:/app
       - backend_cache:/root/.cache

@@ -5,8 +5,7 @@ This guide explains how to run the University Aggregator backend using Docker Co
 ## Prerequisites
 
 - Docker Desktop (or Docker Engine + Docker Compose)
-- Anthropic API key (required for AI features)
-- Context7 API key (optional, for enhanced AI memory)
+- OpenAI API key (required for AI features)
 
 ## Quick Start
 
@@ -21,12 +20,12 @@ cd university-catalog/backend
 cp .env.example .env
 ```
 
-Edit `.env` and add your API keys:
+Edit `.env` and add your OpenAI API key:
 ```env
-ANTHROPIC_API_KEY=your_anthropic_api_key_here
-CONTEXT7_API_KEY=your_context7_api_key_here  # Optional
-CONTEXT7_BASE_URL=https://api.context7.io
+OPENAI_API_KEY=your_openai_api_key_here
 ```
+
+Get your OpenAI API key from: https://platform.openai.com/api-keys
 
 3. **Start services**
 ```bash

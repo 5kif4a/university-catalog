@@ -1,5 +1,6 @@
 import {
   Box,
+  Stack,
   FormControl,
   InputLabel,
   Select,
@@ -92,15 +93,18 @@ export default function UniversityFilters({
   const hasActiveFilters = filters.country || filters.specialty;
 
   return (
-    <Box className="space-y-4">
+    <Stack spacing={4}>
       {/* Filter Header */}
-      <Box className="flex items-center gap-2 mb-4">
+      <Stack direction="row" alignItems="center" spacing={2}>
         <FilterList color="primary" />
         <Box className="text-lg font-semibold text-slate-900">Filters</Box>
-      </Box>
+      </Stack>
 
       {/* Filter Controls */}
-      <Box className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <Stack
+        direction={{ xs: 'column', md: 'row' }}
+        spacing={2}
+      >
         {/* Country Filter */}
         <FormControl fullWidth size="medium">
           <InputLabel id="country-filter-label">Country</InputLabel>
@@ -144,11 +148,11 @@ export default function UniversityFilters({
             ))}
           </Select>
         </FormControl>
-      </Box>
+      </Stack>
 
       {/* Active Filters */}
       {hasActiveFilters && (
-        <Box className="flex flex-wrap gap-2 pt-2">
+        <Stack direction="row" flexWrap="wrap" spacing={1} gap={1}>
           {filters.country && (
             <Chip
               label={`Country: ${filters.country}`}
@@ -167,8 +171,8 @@ export default function UniversityFilters({
               size="medium"
             />
           )}
-        </Box>
+        </Stack>
       )}
-    </Box>
+    </Stack>
   );
 }

@@ -1,22 +1,21 @@
 import json
 from typing import List, Dict, Any, Optional
-from datetime import datetime
-import anthropic
+from openai import AsyncOpenAI
 from app.core.config import settings
-from app.ai.context7_client import Context7Client
 from app.services.university_service import UniversityService
 
 
 class UniversityAIAgent:
     """
     AI Agent for university recommendations and comparisons.
-    Uses Claude (Anthropic) for intelligent responses and Context7 for memory.
+    Uses OpenAI GPT-4 for intelligent responses with simple in-memory session storage.
     """
 
     def __init__(self):
-        self.client = anthropic.Anthropic(api_key=settings.anthropic_api_key)
-        self.context7 = Context7Client()
-        self.model = "claude-3-5-sonnet-20241022"
+        self.client = AsyncOpenAI(api_key=settings.openai_api_key)
+        self.model = "gpt-4o-mini"
+        # Simple in-memory storage for conversation history
+        self.sessions: Dict[str, List[Dict[str, Any]]] = {}
 
     async def recommend_universities(
         self,
@@ -31,9 +30,9 @@ class UniversityAIAgent:
         Provides personalized university recommendations based on user criteria.
         """
 
-        # Retrieve past context from Context7
-        past_contexts = await self.context7.retrieve_context(session_id, limit=5)
-        context_summary = self._summarize_context(past_contexts)
+        # Retrieve past context from session storage
+        past_messages = self.sessions.get(session_id, [])
+        context_summary = self._summarize_context(past_messages)
 
         # Fetch relevant universities from database
         universities, total = await UniversityService.get_all_universities(
@@ -58,7 +57,7 @@ class UniversityAIAgent:
         else:
             universities = universities[:10]
 
-        # Prepare university data for Claude
+        # Prepare university data for GPT
         university_data = [
             {
                 "name": uni.name,
@@ -87,16 +86,18 @@ class UniversityAIAgent:
             preferred_specialty
         )
 
-        # Call Claude for recommendations
-        try:
-            message = self.client.messages.create(
-                model=self.model,
-                max_tokens=2000,
-                system=system_prompt,
-                messages=[
-                    {
-                        "role": "user",
-                        "content": f"""User query: {user_query}
+        # Prepare messages for OpenAI
+        messages = [
+            {"role": "system", "content": system_prompt},
+        ]
+
+        # Add conversation history (last 5 messages)
+        if past_messages:
+            messages.extend(past_messages[-5:])
+
+        messages.append({
+            "role": "user",
+            "content": f"""User query: {user_query}
 
 Available universities:
 {json.dumps(university_data, indent=2)}
@@ -106,33 +107,35 @@ Please provide:
 2. Comparison of pros/cons for each
 3. Explanation of why these match the user's criteria
 4. Any additional advice for the application process"""
-                    }
-                ]
+        })
+
+        # Call OpenAI for recommendations
+        try:
+            response = await self.client.chat.completions.create(
+                model=self.model,
+                messages=messages,
+                max_tokens=2000,
+                temperature=0.7
             )
 
-            response_text = message.content[0].text
+            response_text = response.choices[0].message.content
 
-            # Store interaction in Context7
-            await self.context7.store_context(
-                session_id=session_id,
-                context_data={
-                    "timestamp": datetime.utcnow().isoformat(),
-                    "query": user_query,
-                    "user_score": user_score,
-                    "preferred_country": preferred_country,
-                    "preferred_specialty": preferred_specialty,
-                    "recommendations_count": len(universities),
-                    "response_preview": response_text[:200]
-                },
-                tags=["recommendation", "query"]
-            )
+            # Store interaction in session
+            if session_id not in self.sessions:
+                self.sessions[session_id] = []
+
+            self.sessions[session_id].append({"role": "user", "content": user_query})
+            self.sessions[session_id].append({"role": "assistant", "content": response_text})
+
+            # Keep only last 20 messages to prevent memory issues
+            if len(self.sessions[session_id]) > 20:
+                self.sessions[session_id] = self.sessions[session_id][-20:]
 
             return {
                 "success": True,
                 "recommendations": response_text,
                 "universities_analyzed": len(universities),
                 "total_universities_available": total,
-                "context_used": len(past_contexts) > 0,
                 "session_id": session_id
             }
 
@@ -192,15 +195,9 @@ Please provide:
             "ranking", "tuition fees", "acceptance rate", "requirements"
         ]
 
-        try:
-            message = self.client.messages.create(
-                model=self.model,
-                max_tokens=1500,
-                system="You are a university advisor. Compare universities objectively.",
-                messages=[
-                    {
-                        "role": "user",
-                        "content": f"""Compare these universities based on: {', '.join(criteria)}
+        messages = [
+            {"role": "system", "content": "You are a university advisor. Compare universities objectively."},
+            {"role": "user", "content": f"""Compare these universities based on: {', '.join(criteria)}
 
 Universities:
 {json.dumps(university_data, indent=2)}
@@ -209,24 +206,28 @@ Provide:
 1. Side-by-side comparison table
 2. Key differences
 3. Which university is better for specific goals
-4. Overall recommendation"""
-                    }
-                ]
+4. Overall recommendation"""}
+        ]
+
+        try:
+            response = await self.client.chat.completions.create(
+                model=self.model,
+                messages=messages,
+                max_tokens=1500,
+                temperature=0.7
             )
 
-            response_text = message.content[0].text
+            response_text = response.choices[0].message.content
 
-            # Store in Context7
-            await self.context7.store_context(
-                session_id=session_id,
-                context_data={
-                    "timestamp": datetime.utcnow().isoformat(),
-                    "action": "comparison",
-                    "universities": university_names,
-                    "criteria": criteria
-                },
-                tags=["comparison"]
-            )
+            # Store in session
+            if session_id not in self.sessions:
+                self.sessions[session_id] = []
+
+            self.sessions[session_id].append({
+                "role": "user",
+                "content": f"Compare: {', '.join(university_names)}"
+            })
+            self.sessions[session_id].append({"role": "assistant", "content": response_text})
 
             return {
                 "success": True,
@@ -271,24 +272,22 @@ Be concise, practical, and honest about chances of admission."""
             criteria.append(f"Preferred specialty: {preferred_specialty}")
 
         if criteria:
-            base_prompt += f"\n\nUser criteria:\n" + "\n".join(criteria)
+            base_prompt += "\n\nUser criteria:\n" + "\n".join(criteria)
 
         return base_prompt
 
-    def _summarize_context(self, contexts: List[Dict[str, Any]]) -> str:
+    def _summarize_context(self, messages: List[Dict[str, Any]]) -> str:
         """Summarize past context for the prompt."""
-        if not contexts:
+        if not messages:
             return ""
 
-        summary_parts = []
-        for ctx in contexts[-3:]:  # Last 3 interactions
-            data = ctx.get("data", {})
-            if data.get("query"):
-                summary_parts.append(f"- Previous query: {data['query']}")
-            if data.get("preferred_specialty"):
-                summary_parts.append(f"  Interested in: {data['preferred_specialty']}")
+        # Get last 3 user messages for context
+        user_messages = [msg for msg in messages if msg.get("role") == "user"][-3:]
+        if not user_messages:
+            return ""
 
-        return "\n".join(summary_parts) if summary_parts else ""
+        summary_parts = [f"- Previous query: {msg['content'][:100]}" for msg in user_messages]
+        return "\n".join(summary_parts)
 
 
 # Singleton instance

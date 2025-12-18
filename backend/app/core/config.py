@@ -10,9 +10,7 @@ class Settings(BaseSettings):
 
     mongodb_url: str = "mongodb://localhost:27017"
     database_name: str = "university_catalog"
-    anthropic_api_key: str = ""
-    context7_api_key: str = ""
-    context7_base_url: str = "https://api.context7.io"
+    openai_api_key: str = ""
 
     app_title: str = "University Aggregator API"
     app_version: str = "1.0.0"

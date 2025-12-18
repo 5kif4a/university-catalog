@@ -4,10 +4,11 @@ import {
   CardMedia,
   Typography,
   Box,
+  Stack,
   Chip,
   Button,
 } from '@mui/material';
-import { Link } from '@tanstack/react-router';
+import { useNavigate } from '@tanstack/react-router';
 import { School, LocationOn, EmojiEvents } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import type { University } from '@/types/api';
@@ -51,22 +52,28 @@ interface UniversityCardProps {
 const MotionCard = motion(Card);
 
 export default function UniversityCard({ university }: UniversityCardProps) {
+  const navigate = useNavigate();
+
   // Get minimum score from requirements (if available)
   const minScore =
     university.requirements && university.requirements.length > 0
       ? Math.min(...university.requirements.map((r) => r.minimum_score))
       : null;
 
+  const handleClick = () => {
+    navigate({ to: '/universities/$id', params: { id: university._id } });
+  };
+
   return (
     <MotionCard
-      className="h-full flex flex-col"
-      component={Link}
-      to="/universities/$id"
-      params={{ id: university.id }}
+      onClick={handleClick}
       whileHover={{ y: -6, scale: 1.01 }}
       transition={{ duration: 0.25, ease: 'easeOut' }}
       sx={{
-        textDecoration: 'none',
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
         cursor: 'pointer',
         borderRadius: 4,
         '&:hover': {
@@ -78,8 +85,12 @@ export default function UniversityCard({ university }: UniversityCardProps) {
     >
       {/* University Logo */}
       <Box
-        className="relative flex items-center justify-center overflow-hidden"
         sx={{
+          position: 'relative',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          overflow: 'hidden',
           backgroundColor: 'rgba(0, 0, 0, 0.02)',
           height: 200,
         }}
@@ -128,28 +139,36 @@ export default function UniversityCard({ university }: UniversityCardProps) {
         )}
       </Box>
 
-      <CardContent className="flex-1 flex flex-col" sx={{ p: 3 }}>
+      <CardContent sx={{ p: 3, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
         {/* University Name */}
         <Typography
           variant="h6"
           component="h3"
-          className="line-clamp-2"
-          sx={{ mb: 2.5, fontWeight: 500, minHeight: 64 }}
+          sx={{
+            mb: 2.5,
+            fontWeight: 500,
+            minHeight: 64,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical',
+          }}
           color="text.primary"
         >
           {university.name}
         </Typography>
 
         {/* Location */}
-        <Box className="flex items-center gap-1.5" sx={{ mb: 3 }}>
+        <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 3 }}>
           <LocationOn sx={{ fontSize: 20, color: 'text.secondary' }} />
           <Typography variant="body2" color="text.secondary">
             {university.city}, {university.country}
           </Typography>
-        </Box>
+        </Stack>
 
         {/* Specialties */}
-        <Box className="flex flex-wrap gap-1.5" sx={{ mb: 3 }}>
+        <Stack direction="row" flexWrap="wrap" gap={1} sx={{ mb: 3 }}>
           {university.specialty_names.slice(0, 3).map((specialty) => (
             <Chip
               key={specialty}
@@ -177,11 +196,11 @@ export default function UniversityCard({ university }: UniversityCardProps) {
               }}
             />
           )}
-        </Box>
+        </Stack>
 
         {/* Key Info */}
-        <Box className="mt-auto" sx={{ pt: 3, borderTop: '1px solid', borderColor: 'divider' }}>
-          <Box className="flex items-center justify-between">
+        <Box sx={{ mt: 'auto', pt: 3, borderTop: '1px solid', borderColor: 'divider' }}>
+          <Stack direction="row" alignItems="center" justifyContent="space-between">
             {/* Minimum Score */}
             {minScore && (
               <Box>
@@ -205,7 +224,7 @@ export default function UniversityCard({ university }: UniversityCardProps) {
                 </Typography>
               </Box>
             )}
-          </Box>
+          </Stack>
         </Box>
 
         {/* View Details Button */}

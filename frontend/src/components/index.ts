@@ -10,6 +10,7 @@ export { default as FeatureCard } from './FeatureCard';
 export { default as UniversityCard } from './UniversityCard';
 export { default as UniversityFilters } from './UniversityFilters';
 export { default as UniversityList } from './UniversityList';
+export { default as AIAssistant } from './AIAssistant';
 
 // UI Components
 export { ErrorState } from './ErrorState';
