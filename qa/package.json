@@ -1,0 +1,16 @@
+{
+  "name": "@university-catalog/qa",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "report": "playwright show-report",
+    "install-deps": "npm install"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.1"
+  }
+}
