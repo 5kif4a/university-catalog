@@ -9,7 +9,12 @@ from app.routers import universities, specialties, ai_router
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
-    await connect_to_mongo()
+    try:
+        await connect_to_mongo()
+        print("[OK] MongoDB connected successfully")
+    except Exception as e:
+        print(f"[WARNING] MongoDB connection failed: {str(e)[:100]}")
+        print("[WARNING] API will run in demo mode without database")
     yield
     # Shutdown
     await close_mongo_connection()
