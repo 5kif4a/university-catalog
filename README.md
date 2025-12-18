@@ -12,19 +12,38 @@ University Aggregator is an educational catalog that helps students discover uni
 
 ## Features
 
-### Core Functionality
+### Frontend Application
+- Modern, minimalist UI with Material Design
 - Browse universities with detailed information
-- Filter by country, specialty, and minimum score
-- View admission requirements per specialty
-- Pagination and sorting support
+- Filter by country and specialty
+- Search universities by name
+- View detailed university pages with admission requirements
+- Responsive design for mobile and desktop
+- AI-powered chat assistant for personalized recommendations
+- Real-time API integration with backend
+
+### Backend API
+- RESTful API with automatic documentation
+- CRUD operations for universities and specialties
+- Advanced filtering, sorting, and pagination
 - Many-to-Many relationship (Universities ↔ Specialties)
+- MongoDB with Beanie ODM
+- Docker support with Mongo Express UI
 
 ### AI Agent (Production-Ready)
 - Personalized university recommendations
 - Intelligent comparison between universities
-- Context-aware conversations with Context7 memory
+- Context-aware conversations
 - Realistic admission chance assessment
 - Application guidance and advice
+- Natural language understanding powered by OpenAI GPT models
+
+### Quality Assurance
+- E2E tests with Playwright
+- API validation tests
+- UI component tests
+- Filter and search functionality tests
+- AI chat integration tests
 
 ---
 
@@ -35,126 +54,175 @@ University Aggregator is an educational catalog that helps students discover uni
 - **FastAPI** - Modern async web framework
 - **MongoDB** - NoSQL database
 - **Beanie ODM** - Async MongoDB object-document mapper
-- **Claude (Anthropic)** - AI for recommendations
-- **Context7** - Memory and context layer for AI agent
+- **OpenAI API** - AI for recommendations and chat
 
 ### Frontend
-- TBD (React/Next.js planned)
+- **React 19** - Latest version with improved performance
+- **TypeScript** - Type-safe development
+- **Vite** - Lightning-fast build tool
+- **TanStack Router** - Type-safe routing
+- **TanStack Query** - Data fetching and caching
+- **Material UI v7** - Modern component library
+- **Tailwind CSS v4** - Utility-first CSS framework
+- **Framer Motion** - Animation library
+- **React Hot Toast** - Notifications
+- **React Markdown** - Markdown rendering for AI responses
+
+### QA
+- **Playwright** - E2E testing framework
+- **Node.js** - Test execution environment
 
 ---
 
-## Backend Architecture
+## Project Structure
 
 ```
-backend/
-├── app/
-│   ├── main.py              # FastAPI application entry point
-│   ├── core/
-│   │   ├── config.py        # Settings and environment variables
-│   ├── db/
-│   │   ├── mongodb.py       # Database connection and initialization
-│   ├── models/
-│   │   ├── university.py    # University and Requirements models
-│   │   ├── specialty.py     # Specialty model
-│   ├── services/
-│   │   ├── university_service.py  # Business logic for universities
-│   │   ├── specialty_service.py   # Business logic for specialties
-│   ├── routers/
-│   │   ├── universities.py  # University endpoints
-│   │   ├── specialties.py   # Specialty endpoints
-│   │   ├── ai_router.py     # AI agent endpoints
-│   └── ai/
-│       ├── agent.py         # AI recommendation logic
-│       ├── context7_client.py # Context7 integration
-├── requirements.txt
-├── .env.example
-└── .gitignore
+ai-project/
+├── backend/                 # FastAPI backend
+│   ├── app/
+│   │   ├── main.py         # FastAPI application entry point
+│   │   ├── core/           # Configuration
+│   │   ├── db/             # Database connection
+│   │   ├── models/         # Beanie ODM models
+│   │   ├── services/       # Business logic
+│   │   ├── routers/        # API endpoints
+│   │   └── ai/             # AI agent logic
+│   ├── sample_data/        # Seed data for MongoDB
+│   ├── docker-compose.yml  # Docker setup
+│   ├── requirements.txt
+│   └── .env.example
+├── frontend/               # React frontend
+│   ├── src/
+│   │   ├── components/     # Reusable UI components
+│   │   ├── pages/          # Page components
+│   │   ├── routes/         # TanStack Router definitions
+│   │   ├── types/          # TypeScript types
+│   │   ├── lib/            # Utilities and API client
+│   │   ├── theme/          # MUI theme configuration
+│   │   ├── App.tsx
+│   │   └── main.tsx
+│   ├── package.json
+│   ├── vite.config.ts
+│   └── tailwind.config.js
+├── qa/                     # E2E tests
+│   ├── tests/
+│   │   ├── universities.spec.ts
+│   │   ├── ai.spec.ts
+│   │   └── helpers/
+│   ├── playwright.config.js
+│   └── package.json
+├── agent.md                # AI agent documentation
+└── README.md               # This file
 ```
 
 ---
 
 ## Getting Started
 
-You can run the backend either with Docker (recommended) or directly with Python.
+### Prerequisites
+- **Docker Desktop** (for backend with Docker)
+- **Python 3.11+** (for backend without Docker)
+- **Node.js 18+** (for frontend)
+- **Yarn** (for frontend)
+- **OpenAI API key** (for AI features)
 
-### Option 1: Docker Setup (Recommended)
+### Quick Start - Full Stack
 
-The easiest way to run the backend for local development.
+#### 1. Backend Setup (Docker - Recommended)
 
-#### Prerequisites
-- Docker Desktop (or Docker Engine + Docker Compose)
-- Anthropic API key (for AI features)
-- Context7 API key (optional, for memory features)
-
-#### Quick Start
 ```bash
-# 1. Navigate to backend directory
+# Navigate to backend directory
 cd backend
 
-# 2. Configure environment
+# Configure environment
 cp .env.example .env
-# Edit .env and add your API keys
+# Edit .env and add your API key:
+# OPENAI_API_KEY=your_key_here
 
-# 3. Start services
+# Start backend and MongoDB
 docker-compose up -d
 
-# 4. Access services
-# - API: http://localhost:8000/docs
-# - Mongo Express: http://localhost:8081 (admin/admin123)
+# Verify backend is running
+curl http://localhost:8000/docs
 ```
+
+Backend will be available at:
+- API: http://localhost:8000/docs
+- Mongo Express: http://localhost:8081 (admin/admin123)
 
 See [backend/DOCKER.md](backend/DOCKER.md) for detailed Docker documentation.
 
----
+#### 2. Frontend Setup
 
-### Option 2: Local Python Setup
-
-#### Prerequisites
-- Python 3.11 or higher
-- MongoDB running locally or remote connection
-- Anthropic API key (for AI features)
-- Context7 API key (optional, for memory features)
-
-#### Installation
-
-1. Navigate to backend directory:
 ```bash
-cd backend
+# Navigate to frontend directory
+cd frontend
+
+# Install dependencies
+yarn install
+
+# Configure environment (optional)
+cp .env.example .env.local
+
+# Start development server
+yarn dev
 ```
 
-2. Create virtual environment:
+Frontend will be available at: http://localhost:5173
+
+#### 3. Running Tests
+
 ```bash
+# Navigate to QA directory
+cd qa
+
+# Install dependencies
+npm install
+
+# Configure environment (optional)
+cp env.example .env
+
+# Make sure backend and frontend are running, then:
+npm test                # Run all tests
+npm run test:headed     # Run with browser visible
+npm run test:ui         # Run with Playwright UI
+```
+
+### Alternative: Local Backend Setup (Without Docker)
+
+If you prefer to run the backend without Docker:
+
+```bash
+# 1. Make sure MongoDB is running locally or accessible remotely
+
+# 2. Navigate to backend directory
+cd backend
+
+# 3. Create virtual environment
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
 
-3. Install dependencies:
-```bash
+# 4. Install dependencies
 pip install -r requirements.txt
-```
 
-4. Configure environment variables:
-```bash
+# 5. Configure environment
 cp .env.example .env
-```
+# Edit .env with your configuration
 
-Edit `.env`:
-```env
-MONGODB_URL=mongodb://localhost:27017
-DATABASE_NAME=university_catalog
-ANTHROPIC_API_KEY=your_anthropic_key
-CONTEXT7_API_KEY=your_context7_key
-CONTEXT7_BASE_URL=https://api.context7.io
-```
-
-5. Start the server:
-```bash
+# 6. Start the server
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-6. Access API documentation:
-- Swagger UI: http://localhost:8000/docs
-- ReDoc: http://localhost:8000/redoc
+---
+
+## Service URLs
+
+When running locally:
+- **Frontend**: http://localhost:5173
+- **Backend API**: http://localhost:8000
+- **API Documentation**: http://localhost:8000/docs (Swagger UI)
+- **API Documentation**: http://localhost:8000/redoc (ReDoc)
+- **Mongo Express**: http://localhost:8081 (admin/admin123)
 
 ---
 
@@ -186,9 +254,9 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ## AI Agent Details
 
 The AI agent uses:
-1. **Claude 3.5 Sonnet** for intelligent analysis and natural language responses
-2. **Context7** as a memory layer to track user sessions and preferences
-3. **MongoDB** for fetching relevant university data
+1. **OpenAI GPT models** for intelligent analysis and natural language responses
+2. **MongoDB** for fetching relevant university data
+3. **Session management** for tracking user conversations
 
 See [agent.md](agent.md) for comprehensive documentation.
 
@@ -247,14 +315,44 @@ curl -X POST http://localhost:8000/api/ai/recommend \
 
 ---
 
+## Documentation
+
+This project includes comprehensive documentation:
+
+### Root Level
+- **[agent.md](agent.md)** - Complete AI agent documentation and architecture
+
+### Backend
+- **[backend/DOCKER.md](backend/DOCKER.md)** - Docker setup and deployment guide
+
+### Frontend
+- **[frontend/README.md](frontend/README.md)** - Frontend setup and development guide
+- **[frontend/QUICK_START.md](frontend/QUICK_START.md)** - Quick start guide for frontend
+- **[frontend/SETUP.md](frontend/SETUP.md)** - Detailed setup instructions
+- **[frontend/COMPONENT_ARCHITECTURE.md](frontend/COMPONENT_ARCHITECTURE.md)** - Component design patterns
+- **[frontend/COMPONENTS.md](frontend/COMPONENTS.md)** - Component documentation
+- **[frontend/PROJECT_SUMMARY.md](frontend/PROJECT_SUMMARY.md)** - Project overview
+- **[frontend/UNIVERSITIES_FEATURE.md](frontend/UNIVERSITIES_FEATURE.md)** - Universities feature documentation
+- **[frontend/TESTING_CHECKLIST.md](frontend/TESTING_CHECKLIST.md)** - Testing guidelines
+- **[frontend/VISUAL_STRUCTURE.md](frontend/VISUAL_STRUCTURE.md)** - UI/UX structure
+
+### QA
+- **[qa/README.md](qa/README.md)** - E2E testing guide
+- **[qa/WORKFLOW.md](qa/WORKFLOW.md)** - QA workflow documentation
+
+---
+
 ## Development
 
-### Running Tests
+### Backend Development
+
+#### Running Tests
 ```bash
+cd backend
 pytest tests/
 ```
 
-### Code Quality
+#### Code Quality
 ```bash
 # Format code
 black app/
@@ -266,25 +364,85 @@ flake8 app/
 mypy app/
 ```
 
+### Frontend Development
+
+#### Running in Development Mode
+```bash
+cd frontend
+yarn dev
+```
+
+#### Build and Preview
+```bash
+# Build for production
+yarn build
+
+# Preview production build
+yarn preview
+```
+
+#### Code Quality
+```bash
+# Lint
+yarn lint
+```
+
+#### Available Frontend Scripts
+- `yarn dev` - Start development server with HMR
+- `yarn build` - Build for production
+- `yarn preview` - Preview production build
+- `yarn lint` - Run ESLint
+
+### QA Development
+
+#### Running Tests
+```bash
+cd qa
+npm test                # Run all tests
+npm run test:headed     # Run with browser visible
+npm run test:ui         # Run with Playwright UI
+npm run test:debug      # Debug tests
+npm run report          # View test report
+```
+
 ---
 
 ## Deployment
 
 ### Production Checklist
-- [ ] Set up production MongoDB instance
+
+#### Backend
+- [ ] Set up production MongoDB instance (MongoDB Atlas recommended)
 - [ ] Configure environment variables securely
-- [ ] Enable HTTPS
+- [ ] Enable HTTPS with SSL certificates
 - [ ] Set up rate limiting
-- [ ] Monitor API usage (Anthropic, Context7)
+- [ ] Monitor API usage (OpenAI API)
 - [ ] Implement logging and error tracking
 - [ ] Configure CORS for production domains
+- [ ] Remove debug/development flags
+- [ ] Set up health check endpoints
 
-### Docker Deployment
+#### Frontend
+- [ ] Build production bundle (`yarn build`)
+- [ ] Configure environment variables for production API
+- [ ] Deploy to hosting platform (Vercel, Netlify, or AWS S3 + CloudFront)
+- [ ] Set up CDN for static assets
+- [ ] Configure analytics and error tracking
+- [ ] Enable gzip/brotli compression
+- [ ] Set up proper cache headers
+
+#### QA
+- [ ] Run full test suite before deployment
+- [ ] Set up CI/CD pipeline with automated testing
+- [ ] Configure test environments
+
+### Backend Docker Deployment
 
 Docker setup is available for local development and production:
 
 ```bash
 # Development (with hot reload)
+cd backend
 docker-compose up -d
 
 # Production (requires configuration updates)
@@ -295,7 +453,33 @@ docker-compose up -d
 # - Configure secrets management
 ```
 
-See [DOCKER.md](DOCKER.md) for complete Docker documentation.
+See [backend/DOCKER.md](backend/DOCKER.md) for complete Docker documentation.
+
+### Frontend Deployment
+
+The frontend can be deployed to various platforms:
+
+#### Vercel (Recommended)
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+cd frontend
+vercel
+```
+
+#### Netlify
+```bash
+# Build
+cd frontend
+yarn build
+
+# Deploy dist/ folder to Netlify
+```
+
+#### Docker (Alternative)
+Create a `Dockerfile` in the frontend directory for containerized deployment.
 
 ---
 
@@ -309,11 +493,11 @@ See [DOCKER.md](DOCKER.md) for complete Docker documentation.
 
 ---
 
-## Team
+## Team Structure
 
-- **Backend**: Production-ready FastAPI + AI Agent
-- **Frontend**: TBD
-- **QA**: TBD
+- **Backend**: Production-ready FastAPI + MongoDB + AI Agent integration
+- **Frontend**: Modern React application with Material UI and TanStack ecosystem
+- **QA**: Comprehensive E2E testing with Playwright
 
 ---
 
