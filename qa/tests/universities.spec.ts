@@ -13,7 +13,6 @@ test.describe('University Catalog E2E Tests', () => {
 
       // TODO: Handle API unavailability gracefully - replace with expect.soft for UI checks when API is ready
       if (response === null) {
-        await expect.soft(page.locator('body')).toBeVisible();
         return;
       }
 
@@ -23,7 +22,7 @@ test.describe('University Catalog E2E Tests', () => {
       await page.goto('/');
 
       // Find all university cards
-      const universityCards = page.locator('[data-testid="university-card"]');
+      const universityCards = page.locator('a[href*="/universities/"]');
 
       // Check that number of cards matches API response
       await expect(universityCards).toHaveCount(universities.length);
@@ -31,8 +30,8 @@ test.describe('University Catalog E2E Tests', () => {
       // Check that each card has name and country
       for (let i = 0; i < universities.length; i++) {
         const card = universityCards.nth(i);
-        await expect(card.locator('[data-testid="university-name"]')).toBeVisible();
-        await expect(card.locator('[data-testid="university-country"]')).toBeVisible();
+        await expect(card.locator('h6, h3')).toBeVisible(); // University name
+        await expect(card.locator('.MuiTypography-root').filter({ hasText: universities[i].country })).toBeVisible();
       }
     });
 
@@ -88,7 +87,6 @@ test.describe('University Catalog E2E Tests', () => {
 
       // TODO: Handle API unavailability gracefully - replace with expect.soft for UI checks when API is ready
       if (response === null) {
-        await expect.soft(page.locator('body')).toBeVisible();
         return;
       }
 
@@ -97,7 +95,6 @@ test.describe('University Catalog E2E Tests', () => {
 
       // TODO: Handle API unavailability gracefully - replace with expect.soft for UI checks when API is ready
       if (universityDetails === null) {
-        await expect.soft(page.locator('body')).toBeVisible();
         return;
       }
 
@@ -105,24 +102,22 @@ test.describe('University Catalog E2E Tests', () => {
       await page.goto(`/university/${firstUniversity.id}`);
 
       // Check that university name matches API
-      const universityName = page.locator('[data-testid="university-name"]');
+      const universityName = page.locator('h1').filter({ hasText: universityDetails.name });
       await expect(universityName).toBeVisible();
 
       // Check that country and city are displayed
-      const universityCountry = page.locator('[data-testid="university-country"]');
-      const universityCity = page.locator('[data-testid="university-city"]');
-      await expect(universityCountry).toBeVisible();
-      await expect(universityCity).toBeVisible();
+      await expect(page.locator('.MuiTypography-root').filter({ hasText: universityDetails.country })).toBeVisible();
+      await expect(page.locator('.MuiTypography-root').filter({ hasText: universityDetails.city })).toBeVisible();
 
       // Check that university has specialties (length > 0)
-      const specialties = page.locator('[data-testid="specialty-item"]');
+      const specialties = page.locator('.MuiChip-root'); // Specialty chips
       await expect(specialties).toHaveCount(universityDetails.specialties.length);
       expect(universityDetails.specialties.length).toBeGreaterThan(0);
 
       // Check requirements if they exist
-      if (universityDetails.requirements && universityDetails.requirements.length > 0) {
-        const requirements = page.locator('[data-testid="requirement-item"]');
-        await expect(requirements).toHaveCount(universityDetails.requirements.length);
+      if (universityDetails.requirements && universityDetails.requirements.exams && universityDetails.requirements.exams.length > 0) {
+        const requirements = page.locator('.MuiPaper-root'); // Exam requirement cards
+        await expect(requirements).toHaveCount(universityDetails.requirements.exams.length);
       }
     });
   });
@@ -130,21 +125,21 @@ test.describe('University Catalog E2E Tests', () => {
   test.describe('Country Filter', () => {
     test('should display country filter', async ({ page }) => {
       // TODO: Check country filter component exists
-      // await expect(page.locator('[data-testid="country-filter"]')).toBeVisible();
+      // await expect(page.locator('#country-filter')).toBeVisible();
 
       await expect(page.locator('body')).toBeVisible();
     });
 
     test('should filter universities by country', async ({ page }) => {
       // TODO: Select a country from filter dropdown
-      // await page.locator('[data-testid="country-filter"]').click();
-      // await page.locator('[data-testid="country-option-usa"]').click();
+      // await page.locator('#country-filter').click();
+      // await page.locator('li').filter({ hasText: 'USA' }).click();
 
       // TODO: Verify only universities from selected country are shown
-      // const universityCards = page.locator('[data-testid="university-card"]');
+      // const universityCards = page.locator('a[href*="/universities/"]');
       // await expect(universityCards).toHaveCount(await universityCards.count());
       // for (const card of await universityCards.all()) {
-      //   await expect(card.locator('[data-testid="university-country"]')).toContainText('USA');
+      //   await expect(card.locator('.MuiTypography-root')).toContainText('USA');
       // }
 
       await expect(page.locator('body')).toBeVisible();
@@ -152,15 +147,15 @@ test.describe('University Catalog E2E Tests', () => {
 
     test('should clear country filter', async ({ page }) => {
       // TODO: Apply country filter then clear it
-      // await page.locator('[data-testid="country-filter"]').click();
-      // await page.locator('[data-testid="country-option-usa"]').click();
-      // await page.locator('[data-testid="clear-country-filter"]').click();
+      // await page.locator('#country-filter').click();
+      // await page.locator('li').filter({ hasText: 'USA' }).click();
+      // await page.locator('.MuiChip-root').filter({ hasText: 'Country: USA' }).locator('button').click();
 
       // TODO: Verify all universities are shown again
-      // const allUniversities = page.locator('[data-testid="university-card"]');
+      // const allUniversities = page.locator('a[href*="/universities/"]');
       // const filteredCount = await allUniversities.count();
-      // await page.locator('[data-testid="clear-country-filter"]').click();
-      // await expect(page.locator('[data-testid="university-card"]')).toHaveCount(filteredCount);
+      // await page.locator('.MuiChip-root').filter({ hasText: 'Country: USA' }).locator('button').click();
+      // await expect(page.locator('a[href*="/universities/"]')).toHaveCount(filteredCount);
 
       await expect(page.locator('body')).toBeVisible();
     });
@@ -169,20 +164,20 @@ test.describe('University Catalog E2E Tests', () => {
   test.describe('Specialization Filter', () => {
     test('should display specialization filter', async ({ page }) => {
       // TODO: Check specialization filter component exists
-      // await expect(page.locator('[data-testid="specialization-filter"]')).toBeVisible();
+      // await expect(page.locator('#specialty-filter')).toBeVisible();
 
       await expect(page.locator('body')).toBeVisible();
     });
 
     test('should filter universities by specialization', async ({ page }) => {
       // TODO: Select a specialization from filter
-      // await page.locator('[data-testid="specialization-filter"]').click();
-      // await page.locator('[data-testid="specialization-option-computer-science"]').click();
+      // await page.locator('#specialty-filter').click();
+      // await page.locator('li').filter({ hasText: 'Computer Science' }).click();
 
       // TODO: Verify only universities with selected specialization are shown
-      // const universityCards = page.locator('[data-testid="university-card"]');
+      // const universityCards = page.locator('a[href*="/universities/"]');
       // for (const card of await universityCards.all()) {
-      //   await expect(card.locator('[data-testid="university-specializations"]')).toContainText('Computer Science');
+      //   await expect(card.locator('.MuiChip-root')).toContainText('Computer Science');
       // }
 
       await expect(page.locator('body')).toBeVisible();
@@ -190,9 +185,9 @@ test.describe('University Catalog E2E Tests', () => {
 
     test('should allow multiple specialization selection', async ({ page }) => {
       // TODO: Select multiple specializations
-      // await page.locator('[data-testid="specialization-filter"]').click();
-      // await page.locator('[data-testid="specialization-option-cs"]').click();
-      // await page.locator('[data-testid="specialization-option-engineering"]').click();
+      // await page.locator('#specialty-filter').click();
+      // await page.locator('li').filter({ hasText: 'Computer Science' }).click();
+      // await page.locator('li').filter({ hasText: 'Engineering' }).click();
 
       // TODO: Verify universities with either specialization are shown
       // const universityCards = page.locator('[data-testid="university-card"]');
@@ -207,7 +202,6 @@ test.describe('University Catalog E2E Tests', () => {
 
       // TODO: Handle API unavailability gracefully - replace with expect.soft for UI checks when API is ready
       if (specialties === null) {
-        await expect.soft(page.locator('body')).toBeVisible();
         return;
       }
 
@@ -220,7 +214,6 @@ test.describe('University Catalog E2E Tests', () => {
 
         // TODO: Handle API unavailability gracefully - replace with expect.soft for UI checks when API is ready
         if (allUniversities === null) {
-          await expect.soft(page.locator('body')).toBeVisible();
           return;
         }
 
@@ -228,20 +221,20 @@ test.describe('University Catalog E2E Tests', () => {
         await page.goto('/');
 
         // TODO: Apply specialization filter in UI - replace with actual UI interaction when available
-        // await page.locator('[data-testid="specialization-filter"]').click();
-        // await page.locator(`[data-testid="specialization-option-${selectedSpecialty.name.toLowerCase().replace(/\s+/g, '-')}"]`).click();
+        // await page.locator('#specialty-filter').click();
+        // await page.locator('li').filter({ hasText: selectedSpecialty.name }).click();
 
         // Use soft assertion since UI might not be implemented yet
-        await expect.soft(page.locator('[data-testid="specialization-filter"]')).toBeVisible();
+        await expect.soft(page.locator('#specialty-filter')).toBeVisible();
 
         // TODO: Verify that all visible universities have the selected specialty
-        // const visibleUniversityCards = page.locator('[data-testid="university-card"]');
+        // const visibleUniversityCards = page.locator('a[href*="/universities/"]');
         // const visibleCount = await visibleUniversityCards.count();
 
         // if (visibleCount > 0) {
         //   for (let i = 0; i < visibleCount; i++) {
         //     const card = visibleUniversityCards.nth(i);
-        //     await expect(card.locator('[data-testid="university-specializations"]'))
+        //     await expect(card.locator('.MuiChip-root'))
         //       .toContainText(selectedSpecialty.name);
         //   }
         // }

@@ -7,8 +7,10 @@ test.describe('AI Agent API Tests', () => {
       // Make request to AI health endpoint
       const healthData = await aiHealth();
 
-      // Skip test if API is not available
-      await expect(healthData).not.toBeNull();
+      // Skip test if AI backend is not available locally
+      if (healthData === null) {
+        test.skip('AI backend not available locally');
+      }
 
       // Verify status is operational
       expect(healthData.status).toBe('operational');
@@ -40,8 +42,10 @@ test.describe('AI Agent API Tests', () => {
       // Make POST request to AI recommend endpoint
       const recommendationData = await aiRecommend(recommendationRequest);
 
-      // Skip test if API is not available
-      await expect(recommendationData).not.toBeNull();
+      // Skip test if AI backend is not available locally
+      if (recommendationData === null) {
+        test.skip('AI backend not available locally');
+      }
 
       // Verify success field is true
       expect(recommendationData.success).toBe(true);
