@@ -27,10 +27,10 @@ export default function HomePage() {
             color="primary"
             sx={{ fontWeight: 700 }}
           >
-            Welcome to AI Project
+            Discover Your Perfect University
           </Typography>
           <Typography variant="h6" color="text.secondary" className="mb-8">
-            Modern React app with MUI, TanStack Router, and Tailwind CSS
+            Explore universities worldwide and get AI-powered recommendations tailored to your goals
           </Typography>
           <Box className="flex gap-4 justify-center">
             <Button
@@ -73,18 +73,18 @@ export default function HomePage() {
 // Mock data
 const features = [
   {
-    icon: '⚡',
-    title: 'Fast Development',
-    description: 'Built with Vite for lightning-fast HMR and optimized production builds.',
+    icon: '🎓',
+    title: 'Thousands of Universities',
+    description: 'Browse universities from around the world with detailed information about programs and requirements.',
   },
   {
-    icon: '🎨',
-    title: 'Modern Design',
-    description: 'Material UI components with Tailwind utilities for flexible styling.',
+    icon: '🔍',
+    title: 'Smart Filters',
+    description: 'Filter by country, specialty, scores, and admission requirements to find your perfect match.',
   },
   {
-    icon: '🧭',
-    title: 'Type-Safe Routing',
-    description: 'TanStack Router provides fully type-safe navigation and data loading.',
+    icon: '🤖',
+    title: 'AI Recommendations',
+    description: 'Get personalized university suggestions powered by AI based on your profile and preferences.',
   },
 ];

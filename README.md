@@ -75,13 +75,47 @@ backend/
 
 ## Getting Started
 
-### Prerequisites
+You can run the backend either with Docker (recommended) or directly with Python.
+
+### Option 1: Docker Setup (Recommended)
+
+The easiest way to run the backend for local development.
+
+#### Prerequisites
+- Docker Desktop (or Docker Engine + Docker Compose)
+- Anthropic API key (for AI features)
+- Context7 API key (optional, for memory features)
+
+#### Quick Start
+```bash
+# 1. Navigate to backend directory
+cd backend
+
+# 2. Configure environment
+cp .env.example .env
+# Edit .env and add your API keys
+
+# 3. Start services
+docker-compose up -d
+
+# 4. Access services
+# - API: http://localhost:8000/docs
+# - Mongo Express: http://localhost:8081 (admin/admin123)
+```
+
+See [backend/DOCKER.md](backend/DOCKER.md) for detailed Docker documentation.
+
+---
+
+### Option 2: Local Python Setup
+
+#### Prerequisites
 - Python 3.11 or higher
 - MongoDB running locally or remote connection
 - Anthropic API key (for AI features)
 - Context7 API key (optional, for memory features)
 
-### Installation
+#### Installation
 
 1. Navigate to backend directory:
 ```bash
@@ -246,9 +280,22 @@ mypy app/
 - [ ] Configure CORS for production domains
 
 ### Docker Deployment
+
+Docker setup is available for local development and production:
+
 ```bash
-# TBD - Docker configuration coming soon
+# Development (with hot reload)
+docker-compose up -d
+
+# Production (requires configuration updates)
+# - Change MongoDB credentials
+# - Remove --reload flag
+# - Set up reverse proxy (nginx/Traefik)
+# - Enable HTTPS
+# - Configure secrets management
 ```
+
+See [DOCKER.md](DOCKER.md) for complete Docker documentation.
 
 ---
 

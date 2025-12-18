@@ -1,1 +1,25 @@
 .claude
+
+# Environment variables
+.env
+.env.local
+
+# Docker volumes
+mongodb_data/
+backend_cache/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+.DS_Store

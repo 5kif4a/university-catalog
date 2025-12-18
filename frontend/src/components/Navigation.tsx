@@ -23,7 +23,7 @@ export default function Navigation() {
     <AppBar position="static" color="primary" elevation={1}>
       <Toolbar>
         <Typography variant="h6" component="h1" className="font-bold flex-1">
-          AI Project
+          University Aggregator
         </Typography>
         <Box component="nav" className="flex gap-4">
           <Button color="inherit" component={Link} to="/">
@@ -34,9 +34,6 @@ export default function Navigation() {
           </Button>
           <Button color="inherit" component={Link} to="/about">
             About
-          </Button>
-          <Button color="inherit" component={Link} to="/users">
-            Users
           </Button>
         </Box>
       </Toolbar>
