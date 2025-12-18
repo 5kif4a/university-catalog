@@ -2,11 +2,13 @@ import { Box, Container, Typography, Button } from '@mui/material';
 import { Link } from '@tanstack/react-router';
 import Navigation from '@/components/Navigation';
 import FeatureCard from '@/components/FeatureCard';
+import { PageTransition } from '@/components';
 
 /**
  * HomePage Component
  *
- * Main landing page with MUI components and Tailwind utilities
+ * Main landing page with Apple-style minimalist design
+ * Features smooth animations and generous spacing
  *
  * @example
  * // Used in router configuration
@@ -14,59 +16,59 @@ import FeatureCard from '@/components/FeatureCard';
  */
 export default function HomePage() {
   return (
-    <Box className="min-h-screen bg-slate-50">
-      <Navigation />
+    <PageTransition>
+      <Box className="min-h-screen" sx={{ backgroundColor: 'background.default' }}>
+        <Navigation />
 
-      {/* Main Content */}
-      <Container maxWidth="lg" className="py-12">
-        <Box className="text-center mb-12">
-          <Typography
-            variant="h2"
-            component="h1"
-            className="mb-4"
-            color="primary"
-            sx={{ fontWeight: 700 }}
-          >
-            Discover Your Perfect University
-          </Typography>
-          <Typography variant="h6" color="text.secondary" className="mb-8">
-            Explore universities worldwide and get AI-powered recommendations tailored to your goals
-          </Typography>
-          <Box className="flex gap-4 justify-center">
-            <Button
-              variant="contained"
-              size="large"
-              className="px-8"
-              component={Link}
-              to="/universities"
+        {/* Hero Section */}
+        <Container maxWidth="lg" sx={{ py: { xs: 12, md: 20 } }}>
+          <Box sx={{ textAlign: 'center', mb: 16 }}>
+            <Typography
+              variant="h2"
+              component="h1"
+              sx={{ mb: 4, fontWeight: 500 }}
             >
-              Explore Universities
-            </Button>
-            <Button
-              variant="outlined"
-              size="large"
-              className="px-8"
-              component={Link}
-              to="/about"
-            >
-              Learn More
-            </Button>
+              Discover Your Perfect University
+            </Typography>
+            <Typography variant="h6" color="text.secondary" sx={{ mb: 8, fontWeight: 400, maxWidth: 700, mx: 'auto', lineHeight: 1.7 }}>
+              Explore universities worldwide and get AI-powered recommendations tailored to your goals
+            </Typography>
+            <Box className="flex justify-center" sx={{ flexWrap: 'wrap', gap: 1 }}>
+              <Button
+                variant="contained"
+                size="large"
+                component={Link}
+                to="/universities"
+                sx={{ px: 6, py: 1.5 }}
+              >
+                Explore Universities
+              </Button>
+              <Button
+                variant="outlined"
+                size="large"
+                component={Link}
+                to="/about"
+                sx={{ px: 6, py: 1.5 }}
+              >
+                Learn More
+              </Button>
+            </Box>
           </Box>
-        </Box>
 
-        {/* Feature Cards */}
-        <Box className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-          {features.map((feature, index) => (
-            <FeatureCard
-              key={index}
-              icon={feature.icon}
-              title={feature.title}
-              description={feature.description}
-            />
-          ))}
-        </Box>
-      </Container>
-    </Box>
+          {/* Feature Cards */}
+          <Box className="grid grid-cols-1 md:grid-cols-3" sx={{ gap: 8, mt: 16 }}>
+            {features.map((feature, index) => (
+              <FeatureCard
+                key={index}
+                icon={feature.icon}
+                title={feature.title}
+                description={feature.description}
+              />
+            ))}
+          </Box>
+        </Container>
+      </Box>
+    </PageTransition>
   );
 }
 

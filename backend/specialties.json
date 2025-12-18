@@ -1,0 +1,52 @@
+[
+  {
+    "name": "Computer Science",
+    "description": "Study of computation, algorithms, and information processing systems",
+    "category": "Engineering"
+  },
+  {
+    "name": "Mechanical Engineering",
+    "description": "Design, analysis, and manufacturing of mechanical systems",
+    "category": "Engineering"
+  },
+  {
+    "name": "Business Administration",
+    "description": "Management, finance, marketing, and organizational leadership",
+    "category": "Business"
+  },
+  {
+    "name": "Medicine",
+    "description": "Study of health, disease, and medical treatment",
+    "category": "Healthcare"
+  },
+  {
+    "name": "Electrical Engineering",
+    "description": "Study of electrical systems, electronics, and telecommunications",
+    "category": "Engineering"
+  },
+  {
+    "name": "Psychology",
+    "description": "Scientific study of mind and behavior",
+    "category": "Social Sciences"
+  },
+  {
+    "name": "Economics",
+    "description": "Study of production, distribution, and consumption of goods and services",
+    "category": "Social Sciences"
+  },
+  {
+    "name": "Data Science",
+    "description": "Interdisciplinary field using statistics, programming, and machine learning",
+    "category": "Engineering"
+  },
+  {
+    "name": "Architecture",
+    "description": "Design and planning of buildings and physical structures",
+    "category": "Arts & Design"
+  },
+  {
+    "name": "International Relations",
+    "description": "Study of relationships between countries, diplomacy, and global politics",
+    "category": "Social Sciences"
+  }
+]

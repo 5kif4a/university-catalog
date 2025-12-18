@@ -7,7 +7,7 @@ All components, pages, and routes for the university aggregator feature have bee
 ## What Was Created
 
 ### 1. Components (3 files)
-Located in `/Users/alikhan_shorin/Documents/personal/ai-project/frontend/src/components/`
+Located in `/Users/alikhan_shorin/Documents/personal/university-catalog/frontend/src/components/`
 
 - **UniversityCard.tsx** - Card component for displaying university in list view
   - University logo with fallback
@@ -28,7 +28,7 @@ Located in `/Users/alikhan_shorin/Documents/personal/ai-project/frontend/src/com
   - Empty state handling
 
 ### 2. Pages (2 files)
-Located in `/Users/alikhan_shorin/Documents/personal/ai-project/frontend/src/pages/`
+Located in `/Users/alikhan_shorin/Documents/personal/university-catalog/frontend/src/pages/`
 
 - **UniversitiesPage.tsx** - Main list page at `/universities`
   - Page header with title and description
@@ -43,7 +43,7 @@ Located in `/Users/alikhan_shorin/Documents/personal/ai-project/frontend/src/pag
   - 404 state for invalid IDs
 
 ### 3. Routes (2 files)
-Located in `/Users/alikhan_shorin/Documents/personal/ai-project/frontend/src/routes/`
+Located in `/Users/alikhan_shorin/Documents/personal/university-catalog/frontend/src/routes/`
 
 - **universities.tsx** - List route configuration
 - **universities.$id.tsx** - Dynamic detail route configuration
@@ -148,7 +148,7 @@ frontend/src/
 
 ### 1. Start Development Server
 ```bash
-cd /Users/alikhan_shorin/Documents/personal/ai-project/frontend
+cd /Users/alikhan_shorin/Documents/personal/university-catalog/frontend
 yarn dev
 ```
 

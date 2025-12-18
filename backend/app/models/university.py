@@ -1,13 +1,13 @@
 from typing import List, Optional
 from beanie import Document, Link
-from pydantic import Field, HttpUrl
+from pydantic import BaseModel, Field, HttpUrl
 from app.models.specialty import Specialty
 
 
-class UniversityRequirements(Document):
+class UniversityRequirements(BaseModel):
     specialty_id: str = Field(..., description="Reference to specialty")
     specialty_name: str = Field(..., description="Specialty name for denormalization")
-    minimum_score: float = Field(..., ge=0, le=800, description="Minimum SAT/equivalent score")
+    minimum_score: float = Field(..., ge=0, le=1600, description="Minimum SAT/equivalent score")
     exams: List[str] = Field(default_factory=list, description="Required exams")
     additional_requirements: Optional[str] = Field(None, description="Additional requirements")
 

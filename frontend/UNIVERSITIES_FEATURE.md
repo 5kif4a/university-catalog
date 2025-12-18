@@ -282,7 +282,7 @@ interface UniversityFilters {
 
 ```bash
 # Navigate to frontend directory
-cd /Users/alikhan_shorin/Documents/personal/ai-project/frontend
+cd /Users/alikhan_shorin/Documents/personal/university-catalog/frontend
 
 # Install dependencies (if not done)
 yarn install
@@ -343,7 +343,7 @@ yarn build
 All absolute paths for reference:
 
 ```
-/Users/alikhan_shorin/Documents/personal/ai-project/frontend/src/
+/Users/alikhan_shorin/Documents/personal/university-catalog/frontend/src/
 ├── components/
 │   ├── UniversityCard.tsx
 │   ├── UniversityFilters.tsx

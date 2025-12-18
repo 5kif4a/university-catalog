@@ -9,21 +9,124 @@
   padding: 0;
 }
 
-html,
-body {
+html {
   height: 100%;
   width: 100%;
+  /* Smooth scrolling for Apple-style UX */
+  scroll-behavior: smooth;
 }
 
 body {
+  height: 100%;
+  width: 100%;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Improved text rendering */
+  text-rendering: optimizeLegibility;
 }
 
 #root {
   height: 100%;
   width: 100%;
+}
+
+/* Apple-style spacing utilities */
+@layer utilities {
+  /* Page containers with generous spacing */
+  .page-container {
+    padding-top: 4rem; /* 64px */
+    padding-bottom: 4rem; /* 64px */
+  }
+
+  .page-container-lg {
+    padding-top: 5rem; /* 80px */
+    padding-bottom: 5rem; /* 80px */
+  }
+
+  /* Section spacing utilities */
+  .section-spacing {
+    margin-bottom: 3rem; /* 48px */
+  }
+
+  .section-spacing-lg {
+    margin-bottom: 4rem; /* 64px */
+  }
+
+  /* Card spacing utilities */
+  .card-spacing {
+    padding: 2rem; /* 32px */
+  }
+
+  .card-spacing-lg {
+    padding: 2.5rem; /* 40px */
+  }
+
+  /* Content spacing utilities */
+  .content-spacing {
+    margin-bottom: 1.5rem; /* 24px */
+  }
+
+  .content-spacing-lg {
+    margin-bottom: 2rem; /* 32px */
+  }
+
+  /* Apple-style focus states */
+  .focus-ring {
+    outline: none;
+  }
+
+  .focus-ring:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Smooth transitions */
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Apple-style hover effects */
+  .hover-lift {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+  }
+}
+
+/* Disable default focus outline and use custom ring */
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Smooth animations for route transitions */
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

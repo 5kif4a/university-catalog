@@ -7,7 +7,7 @@
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ NAVIGATION BAR                                               │
-│ [AI Project] [Home] [Universities] [About] [Users]          │
+│ [University Catalog] [Home] [Universities] [About] [Users]  │
 └─────────────────────────────────────────────────────────────┘
 ┌─────────────────────────────────────────────────────────────┐
 │ PAGE HEADER (White background)                               │
@@ -69,7 +69,7 @@
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ NAVIGATION BAR                                               │
-│ [AI Project] [Home] [Universities] [About] [Users]          │
+│ [University Catalog] [Home] [Universities] [About] [Users]  │
 └─────────────────────────────────────────────────────────────┘
 ┌─────────────────────────────────────────────────────────────┐
 │ HERO SECTION (White background)                              │
@@ -134,12 +134,12 @@
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ NAVIGATION BAR                                               │
-│ [AI Project] [Home] [Universities] [About] [Users]          │
+│ [University Catalog] [Home] [Universities] [About] [Users]  │
 └─────────────────────────────────────────────────────────────┘
 ┌─────────────────────────────────────────────────────────────┐
 │ HERO SECTION                                                 │
 │                                                              │
-│              Welcome to AI Project                           │
+│              Welcome to University Catalog                   │
 │                                                              │
 │     Modern React app with MUI, TanStack Router,             │
 │              and Tailwind CSS                                │

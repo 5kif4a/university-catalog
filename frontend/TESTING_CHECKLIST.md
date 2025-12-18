@@ -2,7 +2,7 @@
 
 ## Pre-Testing Setup
 
-- [ ] Navigate to frontend directory: `cd /Users/alikhan_shorin/Documents/personal/ai-project/frontend`
+- [ ] Navigate to frontend directory: `cd /Users/alikhan_shorin/Documents/personal/university-catalog/frontend`
 - [ ] Install dependencies (if not done): `yarn install`
 - [ ] Start dev server: `yarn dev`
 - [ ] Open browser to: `http://localhost:5173`
@@ -12,9 +12,9 @@
 ### Layout & Content
 - [ ] Page loads without errors
 - [ ] Navigation bar is visible
-- [ ] "AI Project" logo/title is displayed
+- [ ] "University Catalog" logo/title is displayed
 - [ ] Navigation links are visible: Home, Universities, About, Users
-- [ ] Hero section displays title: "Welcome to AI Project"
+- [ ] Hero section displays title: "Welcome to University Catalog"
 - [ ] Hero section displays description
 - [ ] "Explore Universities" button is visible
 - [ ] "Learn More" button is visible

@@ -5,7 +5,7 @@
 ### 1. Start the Development Server
 
 ```bash
-cd /Users/alikhan_shorin/Documents/personal/ai-project/frontend
+cd /Users/alikhan_shorin/Documents/personal/university-catalog/frontend
 yarn dev
 ```
 

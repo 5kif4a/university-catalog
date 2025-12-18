@@ -2,12 +2,12 @@
 
 ## Выполните следующие команды
 
-Откройте терминал в директории `/Users/alikhan_shorin/Documents/personal/ai-project/frontend` и выполните команды:
+Откройте терминал в директории `/Users/alikhan_shorin/Documents/personal/university-catalog/frontend` и выполните команды:
 
 ### 1. Установка зависимостей
 
 ```bash
-cd /Users/alikhan_shorin/Documents/personal/ai-project/frontend
+cd /Users/alikhan_shorin/Documents/personal/university-catalog/frontend
 yarn install
 ```
 

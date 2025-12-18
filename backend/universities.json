@@ -1,0 +1,598 @@
+[
+  {
+    "name": "Massachusetts Institute of Technology",
+    "country": "USA",
+    "city": "Cambridge",
+    "description": "Private research university known for engineering and technology",
+    "website": "https://www.mit.edu",
+    "ranking": 1,
+    "specialties": [],
+    "specialty_names": ["Computer Science", "Electrical Engineering", "Mechanical Engineering"],
+    "requirements": [
+      {
+        "specialty_id": "cs_001",
+        "specialty_name": "Computer Science",
+        "minimum_score": 1500,
+        "exams": ["SAT", "SAT Subject Tests"],
+        "additional_requirements": "Strong math background, coding portfolio recommended"
+      },
+      {
+        "specialty_id": "ee_001",
+        "specialty_name": "Electrical Engineering",
+        "minimum_score": 1480,
+        "exams": ["SAT", "SAT Math Level 2"],
+        "additional_requirements": "Physics and advanced math required"
+      },
+      {
+        "specialty_id": "me_001",
+        "specialty_name": "Mechanical Engineering",
+        "minimum_score": 1460,
+        "exams": ["SAT"],
+        "additional_requirements": "Strong physics background"
+      }
+    ],
+    "tuition_fee_usd": 53790,
+    "student_count": 11520,
+    "acceptance_rate": 3.2
+  },
+  {
+    "name": "Stanford University",
+    "country": "USA",
+    "city": "Stanford",
+    "description": "Leading research university in Silicon Valley",
+    "website": "https://www.stanford.edu",
+    "ranking": 2,
+    "specialties": [],
+    "specialty_names": ["Computer Science", "Business Administration", "Data Science"],
+    "requirements": [
+      {
+        "specialty_id": "cs_001",
+        "specialty_name": "Computer Science",
+        "minimum_score": 1490,
+        "exams": ["SAT", "ACT"],
+        "additional_requirements": "Demonstrated interest in technology and innovation"
+      },
+      {
+        "specialty_id": "ba_001",
+        "specialty_name": "Business Administration",
+        "minimum_score": 1450,
+        "exams": ["SAT", "ACT"],
+        "additional_requirements": "Leadership experience preferred"
+      },
+      {
+        "specialty_id": "ds_001",
+        "specialty_name": "Data Science",
+        "minimum_score": 1480,
+        "exams": ["SAT"],
+        "additional_requirements": "Strong math and programming skills"
+      }
+    ],
+    "tuition_fee_usd": 57693,
+    "student_count": 17249,
+    "acceptance_rate": 3.7
+  },
+  {
+    "name": "Harvard University",
+    "country": "USA",
+    "city": "Cambridge",
+    "description": "Oldest university in the United States, Ivy League institution",
+    "website": "https://www.harvard.edu",
+    "ranking": 3,
+    "specialties": [],
+    "specialty_names": ["Business Administration", "Medicine", "Economics", "Psychology"],
+    "requirements": [
+      {
+        "specialty_id": "ba_001",
+        "specialty_name": "Business Administration",
+        "minimum_score": 1500,
+        "exams": ["SAT", "ACT"],
+        "additional_requirements": "Strong academic record, leadership experience"
+      },
+      {
+        "specialty_id": "med_001",
+        "specialty_name": "Medicine",
+        "minimum_score": 1520,
+        "exams": ["SAT", "MCAT"],
+        "additional_requirements": "Pre-med requirements, volunteer experience"
+      },
+      {
+        "specialty_id": "econ_001",
+        "specialty_name": "Economics",
+        "minimum_score": 1480,
+        "exams": ["SAT"],
+        "additional_requirements": "Strong math skills"
+      },
+      {
+        "specialty_id": "psy_001",
+        "specialty_name": "Psychology",
+        "minimum_score": 1460,
+        "exams": ["SAT", "ACT"],
+        "additional_requirements": "Research interest preferred"
+      }
+    ],
+    "tuition_fee_usd": 54768,
+    "student_count": 23731,
+    "acceptance_rate": 3.4
+  },
+  {
+    "name": "University of Oxford",
+    "country": "United Kingdom",
+    "city": "Oxford",
+    "description": "Oldest university in the English-speaking world",
+    "website": "https://www.ox.ac.uk",
+    "ranking": 4,
+    "specialties": [],
+    "specialty_names": ["Computer Science", "Economics", "International Relations", "Medicine"],
+    "requirements": [
+      {
+        "specialty_id": "cs_001",
+        "specialty_name": "Computer Science",
+        "minimum_score": 1450,
+        "exams": ["A-Levels", "IB"],
+        "additional_requirements": "A*AA in A-Levels or 40+ IB points"
+      },
+      {
+        "specialty_id": "econ_001",
+        "specialty_name": "Economics",
+        "minimum_score": 1430,
+        "exams": ["A-Levels", "IB"],
+        "additional_requirements": "Strong math background"
+      },
+      {
+        "specialty_id": "ir_001",
+        "specialty_name": "International Relations",
+        "minimum_score": 1400,
+        "exams": ["A-Levels"],
+        "additional_requirements": "Essay required"
+      },
+      {
+        "specialty_id": "med_001",
+        "specialty_name": "Medicine",
+        "minimum_score": 1480,
+        "exams": ["A-Levels", "BMAT"],
+        "additional_requirements": "Medical experience required"
+      }
+    ],
+    "tuition_fee_usd": 38000,
+    "student_count": 24515,
+    "acceptance_rate": 17.5
+  },
+  {
+    "name": "ETH Zurich",
+    "country": "Switzerland",
+    "city": "Zurich",
+    "description": "Swiss Federal Institute of Technology, top European technical university",
+    "website": "https://ethz.ch",
+    "ranking": 7,
+    "specialties": [],
+    "specialty_names": ["Computer Science", "Mechanical Engineering", "Electrical Engineering", "Architecture"],
+    "requirements": [
+      {
+        "specialty_id": "cs_001",
+        "specialty_name": "Computer Science",
+        "minimum_score": 1400,
+        "exams": ["Matura", "SAT"],
+        "additional_requirements": "Strong math and physics"
+      },
+      {
+        "specialty_id": "me_001",
+        "specialty_name": "Mechanical Engineering",
+        "minimum_score": 1380,
+        "exams": ["Matura", "A-Levels"],
+        "additional_requirements": "Technical aptitude required"
+      },
+      {
+        "specialty_id": "ee_001",
+        "specialty_name": "Electrical Engineering",
+        "minimum_score": 1390,
+        "exams": ["Matura"],
+        "additional_requirements": "Physics and math prerequisites"
+      },
+      {
+        "specialty_id": "arch_001",
+        "specialty_name": "Architecture",
+        "minimum_score": 1350,
+        "exams": ["Matura", "Portfolio"],
+        "additional_requirements": "Design portfolio required"
+      }
+    ],
+    "tuition_fee_usd": 1500,
+    "student_count": 24500,
+    "acceptance_rate": 27.0
+  },
+  {
+    "name": "National University of Singapore",
+    "country": "Singapore",
+    "city": "Singapore",
+    "description": "Leading university in Asia, strong in engineering and business",
+    "website": "https://www.nus.edu.sg",
+    "ranking": 11,
+    "specialties": [],
+    "specialty_names": ["Computer Science", "Business Administration", "Data Science", "Engineering"],
+    "requirements": [
+      {
+        "specialty_id": "cs_001",
+        "specialty_name": "Computer Science",
+        "minimum_score": 1380,
+        "exams": ["SAT", "A-Levels"],
+        "additional_requirements": "Good grades in math"
+      },
+      {
+        "specialty_id": "ba_001",
+        "specialty_name": "Business Administration",
+        "minimum_score": 1350,
+        "exams": ["SAT", "A-Levels"],
+        "additional_requirements": "Interview may be required"
+      },
+      {
+        "specialty_id": "ds_001",
+        "specialty_name": "Data Science",
+        "minimum_score": 1370,
+        "exams": ["SAT"],
+        "additional_requirements": "Programming background helpful"
+      }
+    ],
+    "tuition_fee_usd": 17550,
+    "student_count": 39000,
+    "acceptance_rate": 5.0
+  },
+  {
+    "name": "University of Toronto",
+    "country": "Canada",
+    "city": "Toronto",
+    "description": "Top Canadian research university with diverse programs",
+    "website": "https://www.utoronto.ca",
+    "ranking": 18,
+    "specialties": [],
+    "specialty_names": ["Computer Science", "Business Administration", "Medicine", "Psychology"],
+    "requirements": [
+      {
+        "specialty_id": "cs_001",
+        "specialty_name": "Computer Science",
+        "minimum_score": 1350,
+        "exams": ["SAT", "IB"],
+        "additional_requirements": "Strong math grades"
+      },
+      {
+        "specialty_id": "ba_001",
+        "specialty_name": "Business Administration",
+        "minimum_score": 1320,
+        "exams": ["SAT"],
+        "additional_requirements": "Supplementary application required"
+      },
+      {
+        "specialty_id": "med_001",
+        "specialty_name": "Medicine",
+        "minimum_score": 1400,
+        "exams": ["MCAT"],
+        "additional_requirements": "Prerequisite courses required"
+      },
+      {
+        "specialty_id": "psy_001",
+        "specialty_name": "Psychology",
+        "minimum_score": 1300,
+        "exams": ["SAT"],
+        "additional_requirements": "Science background helpful"
+      }
+    ],
+    "tuition_fee_usd": 45690,
+    "student_count": 95000,
+    "acceptance_rate": 43.0
+  },
+  {
+    "name": "Technical University of Munich",
+    "country": "Germany",
+    "city": "Munich",
+    "description": "Top German technical university with strong industry connections",
+    "website": "https://www.tum.de",
+    "ranking": 37,
+    "specialties": [],
+    "specialty_names": ["Computer Science", "Mechanical Engineering", "Electrical Engineering"],
+    "requirements": [
+      {
+        "specialty_id": "cs_001",
+        "specialty_name": "Computer Science",
+        "minimum_score": 1300,
+        "exams": ["Abitur", "SAT"],
+        "additional_requirements": "Good grades in math and science"
+      },
+      {
+        "specialty_id": "me_001",
+        "specialty_name": "Mechanical Engineering",
+        "minimum_score": 1280,
+        "exams": ["Abitur"],
+        "additional_requirements": "Technical interest"
+      },
+      {
+        "specialty_id": "ee_001",
+        "specialty_name": "Electrical Engineering",
+        "minimum_score": 1290,
+        "exams": ["Abitur"],
+        "additional_requirements": "Physics background"
+      }
+    ],
+    "tuition_fee_usd": 150,
+    "student_count": 45000,
+    "acceptance_rate": 8.0
+  },
+  {
+    "name": "University of Melbourne",
+    "country": "Australia",
+    "city": "Melbourne",
+    "description": "Australia's leading university with comprehensive programs",
+    "website": "https://www.unimelb.edu.au",
+    "ranking": 33,
+    "specialties": [],
+    "specialty_names": ["Computer Science", "Business Administration", "Medicine", "Architecture"],
+    "requirements": [
+      {
+        "specialty_id": "cs_001",
+        "specialty_name": "Computer Science",
+        "minimum_score": 1320,
+        "exams": ["SAT", "ATAR"],
+        "additional_requirements": "Math prerequisites"
+      },
+      {
+        "specialty_id": "ba_001",
+        "specialty_name": "Business Administration",
+        "minimum_score": 1300,
+        "exams": ["SAT", "ATAR"],
+        "additional_requirements": "Personal statement"
+      },
+      {
+        "specialty_id": "med_001",
+        "specialty_name": "Medicine",
+        "minimum_score": 1380,
+        "exams": ["GAMSAT", "ATAR"],
+        "additional_requirements": "Interview required"
+      },
+      {
+        "specialty_id": "arch_001",
+        "specialty_name": "Architecture",
+        "minimum_score": 1280,
+        "exams": ["ATAR", "Portfolio"],
+        "additional_requirements": "Design portfolio"
+      }
+    ],
+    "tuition_fee_usd": 32000,
+    "student_count": 51000,
+    "acceptance_rate": 70.0
+  },
+  {
+    "name": "Seoul National University",
+    "country": "South Korea",
+    "city": "Seoul",
+    "description": "Premier Korean university with strong academic reputation",
+    "website": "https://www.snu.ac.kr",
+    "ranking": 29,
+    "specialties": [],
+    "specialty_names": ["Computer Science", "Business Administration", "Electrical Engineering"],
+    "requirements": [
+      {
+        "specialty_id": "cs_001",
+        "specialty_name": "Computer Science",
+        "minimum_score": 1360,
+        "exams": ["SAT", "KSAT"],
+        "additional_requirements": "Strong academic record"
+      },
+      {
+        "specialty_id": "ba_001",
+        "specialty_name": "Business Administration",
+        "minimum_score": 1340,
+        "exams": ["SAT", "KSAT"],
+        "additional_requirements": "Interview may be required"
+      },
+      {
+        "specialty_id": "ee_001",
+        "specialty_name": "Electrical Engineering",
+        "minimum_score": 1350,
+        "exams": ["SAT", "KSAT"],
+        "additional_requirements": "Math and science focus"
+      }
+    ],
+    "tuition_fee_usd": 6000,
+    "student_count": 28000,
+    "acceptance_rate": 16.0
+  },
+  {
+    "name": "University of Tokyo",
+    "country": "Japan",
+    "city": "Tokyo",
+    "description": "Japan's most prestigious university",
+    "website": "https://www.u-tokyo.ac.jp",
+    "ranking": 23,
+    "specialties": [],
+    "specialty_names": ["Computer Science", "Mechanical Engineering", "Economics"],
+    "requirements": [
+      {
+        "specialty_id": "cs_001",
+        "specialty_name": "Computer Science",
+        "minimum_score": 1340,
+        "exams": ["EJU", "SAT"],
+        "additional_requirements": "Japanese language proficiency for most programs"
+      },
+      {
+        "specialty_id": "me_001",
+        "specialty_name": "Mechanical Engineering",
+        "minimum_score": 1320,
+        "exams": ["EJU"],
+        "additional_requirements": "Strong math and physics"
+      },
+      {
+        "specialty_id": "econ_001",
+        "specialty_name": "Economics",
+        "minimum_score": 1310,
+        "exams": ["EJU"],
+        "additional_requirements": "Interview required"
+      }
+    ],
+    "tuition_fee_usd": 5400,
+    "student_count": 28000,
+    "acceptance_rate": 35.0
+  },
+  {
+    "name": "Lomonosov Moscow State University",
+    "country": "Russia",
+    "city": "Moscow",
+    "description": "Russia's oldest and most prestigious university",
+    "website": "https://www.msu.ru",
+    "ranking": 74,
+    "specialties": [],
+    "specialty_names": ["Computer Science", "Economics", "International Relations", "Psychology"],
+    "requirements": [
+      {
+        "specialty_id": "cs_001",
+        "specialty_name": "Computer Science",
+        "minimum_score": 1250,
+        "exams": ["USE", "SAT"],
+        "additional_requirements": "Entrance exams in math and physics"
+      },
+      {
+        "specialty_id": "econ_001",
+        "specialty_name": "Economics",
+        "minimum_score": 1230,
+        "exams": ["USE"],
+        "additional_requirements": "Math proficiency"
+      },
+      {
+        "specialty_id": "ir_001",
+        "specialty_name": "International Relations",
+        "minimum_score": 1220,
+        "exams": ["USE"],
+        "additional_requirements": "Foreign language skills"
+      },
+      {
+        "specialty_id": "psy_001",
+        "specialty_name": "Psychology",
+        "minimum_score": 1200,
+        "exams": ["USE"],
+        "additional_requirements": "Interview"
+      }
+    ],
+    "tuition_fee_usd": 5000,
+    "student_count": 40000,
+    "acceptance_rate": 30.0
+  },
+  {
+    "name": "Tsinghua University",
+    "country": "China",
+    "city": "Beijing",
+    "description": "China's leading university for engineering and technology",
+    "website": "https://www.tsinghua.edu.cn",
+    "ranking": 14,
+    "specialties": [],
+    "specialty_names": ["Computer Science", "Electrical Engineering", "Mechanical Engineering", "Business Administration"],
+    "requirements": [
+      {
+        "specialty_id": "cs_001",
+        "specialty_name": "Computer Science",
+        "minimum_score": 1400,
+        "exams": ["Gaokao", "SAT"],
+        "additional_requirements": "Exceptionally high Gaokao scores"
+      },
+      {
+        "specialty_id": "ee_001",
+        "specialty_name": "Electrical Engineering",
+        "minimum_score": 1390,
+        "exams": ["Gaokao"],
+        "additional_requirements": "Strong in math and physics"
+      },
+      {
+        "specialty_id": "me_001",
+        "specialty_name": "Mechanical Engineering",
+        "minimum_score": 1370,
+        "exams": ["Gaokao"],
+        "additional_requirements": "Technical aptitude"
+      },
+      {
+        "specialty_id": "ba_001",
+        "specialty_name": "Business Administration",
+        "minimum_score": 1360,
+        "exams": ["Gaokao"],
+        "additional_requirements": "Leadership potential"
+      }
+    ],
+    "tuition_fee_usd": 4700,
+    "student_count": 48000,
+    "acceptance_rate": 1.2
+  },
+  {
+    "name": "Indian Institute of Technology Bombay",
+    "country": "India",
+    "city": "Mumbai",
+    "description": "Premier engineering institute in India",
+    "website": "https://www.iitb.ac.in",
+    "ranking": 149,
+    "specialties": [],
+    "specialty_names": ["Computer Science", "Electrical Engineering", "Mechanical Engineering"],
+    "requirements": [
+      {
+        "specialty_id": "cs_001",
+        "specialty_name": "Computer Science",
+        "minimum_score": 1350,
+        "exams": ["JEE Advanced"],
+        "additional_requirements": "Top JEE Advanced rank required"
+      },
+      {
+        "specialty_id": "ee_001",
+        "specialty_name": "Electrical Engineering",
+        "minimum_score": 1330,
+        "exams": ["JEE Advanced"],
+        "additional_requirements": "High JEE rank"
+      },
+      {
+        "specialty_id": "me_001",
+        "specialty_name": "Mechanical Engineering",
+        "minimum_score": 1310,
+        "exams": ["JEE Advanced"],
+        "additional_requirements": "Strong math and physics"
+      }
+    ],
+    "tuition_fee_usd": 1000,
+    "student_count": 10000,
+    "acceptance_rate": 1.5
+  },
+  {
+    "name": "University of São Paulo",
+    "country": "Brazil",
+    "city": "São Paulo",
+    "description": "Brazil's largest and most prestigious university",
+    "website": "https://www.usp.br",
+    "ranking": 85,
+    "specialties": [],
+    "specialty_names": ["Computer Science", "Business Administration", "Medicine", "Architecture"],
+    "requirements": [
+      {
+        "specialty_id": "cs_001",
+        "specialty_name": "Computer Science",
+        "minimum_score": 1280,
+        "exams": ["FUVEST", "SAT"],
+        "additional_requirements": "Strong performance in entrance exam"
+      },
+      {
+        "specialty_id": "ba_001",
+        "specialty_name": "Business Administration",
+        "minimum_score": 1260,
+        "exams": ["FUVEST"],
+        "additional_requirements": "Competitive entrance exam"
+      },
+      {
+        "specialty_id": "med_001",
+        "specialty_name": "Medicine",
+        "minimum_score": 1340,
+        "exams": ["FUVEST"],
+        "additional_requirements": "Extremely competitive"
+      },
+      {
+        "specialty_id": "arch_001",
+        "specialty_name": "Architecture",
+        "minimum_score": 1240,
+        "exams": ["FUVEST", "Portfolio"],
+        "additional_requirements": "Aptitude test"
+      }
+    ],
+    "tuition_fee_usd": 0,
+    "student_count": 97000,
+    "acceptance_rate": 3.0
+  }
+]

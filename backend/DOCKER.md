@@ -13,7 +13,7 @@ This guide explains how to run the University Aggregator backend using Docker Co
 1. **Clone the repository and navigate to backend**
 ```bash
 git clone <repository-url>
-cd ai-project/backend
+cd university-catalog/backend
 ```
 
 2. **Configure environment variables**

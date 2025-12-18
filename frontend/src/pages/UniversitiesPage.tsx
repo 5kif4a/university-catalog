@@ -1,66 +1,84 @@
 import { Box, Container, Typography } from '@mui/material';
+import { useState, useMemo } from 'react';
 import Navigation from '@/components/Navigation';
 import UniversityList from '@/components/UniversityList';
-import { mockUniversities, countries, specialties } from '@/mock/universities';
+import { PageTransition, UniversityListSkeleton, ErrorState } from '@/components';
+import { useUniversities } from '@/lib/query/hooks/useUniversities';
+import { useSpecialties } from '@/lib/query/hooks/useSpecialties';
+import { extractCountries, extractSpecialtyNames } from '@/lib/api/mappers';
+import type { UniversityFilters } from '@/types/api';
 
 /**
  * UniversitiesPage Component
  *
  * Main page displaying list of universities with filters
- *
- * @example
- * // Used in router configuration
- * <Route path="/universities" component={UniversitiesPage} />
+ * Now powered by real API data with TanStack Query
  *
  * Features:
- * - Full university list with filtering
- * - Responsive layout
- * - Navigation header
- * - Mock data for demonstration
- *
- * Accessibility:
- * - Semantic HTML structure
- * - Proper heading hierarchy (h1, h2)
- * - Focus management
- * - ARIA labels
- *
- * Performance:
- * - Static data (no API calls)
- * - Efficient filtering in child component
- * - Memoized university list
+ * - API-powered university list with real-time data
+ * - Skeleton loaders during data fetching
+ * - Error handling with retry functionality
+ * - Responsive layout with Apple-style spacing
+ * - Smooth page transitions
  */
 export default function UniversitiesPage() {
-  return (
-    <Box className="min-h-screen bg-slate-50">
-      <Navigation />
+  const [filters] = useState<UniversityFilters>({});
 
-      {/* Page Header */}
-      <Box className="bg-white border-b border-slate-200 shadow-sm">
-        <Container maxWidth="lg" className="py-8">
-          <Typography
-            variant="h3"
-            component="h1"
-            className="mb-2"
-            color="primary"
-            sx={{ fontWeight: 700 }}
-          >
-            Explore Universities
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            Discover top universities around the world and find the perfect match
-            for your academic goals
-          </Typography>
+  // Fetch universities and specialties from API
+  const { data: universitiesData, isLoading, error, refetch } = useUniversities(filters);
+  const { data: specialtiesData } = useSpecialties();
+
+  // Extract filter options from data
+  const countries = useMemo(
+    () => (universitiesData?.items ? extractCountries(universitiesData.items) : []),
+    [universitiesData]
+  );
+
+  const specialtyNames = useMemo(
+    () => (specialtiesData ? specialtiesData.map((s) => s.name) : []),
+    [specialtiesData]
+  );
+
+  return (
+    <PageTransition>
+      <Box className="min-h-screen" sx={{ backgroundColor: 'background.default' }}>
+        <Navigation />
+
+        {/* Page Header */}
+        <Box sx={{ borderBottom: '1px solid', borderColor: 'divider', py: { xs: 6, md: 8 } }}>
+          <Container maxWidth="lg">
+            <Typography
+              variant="h3"
+              component="h1"
+              sx={{ mb: 2, fontWeight: 500 }}
+            >
+              Explore Universities
+            </Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '600px' }}>
+              Discover top universities around the world and find the perfect match
+              for your academic goals
+            </Typography>
+          </Container>
+        </Box>
+
+        {/* Main Content */}
+        <Container maxWidth="lg" sx={{ py: { xs: 6, md: 10 } }}>
+          {isLoading ? (
+            <UniversityListSkeleton count={6} />
+          ) : error ? (
+            <ErrorState
+              message={(error as any).message || 'Failed to load universities. Please ensure the backend is running.'}
+              onRetry={refetch}
+            />
+          ) : (
+            <UniversityList
+              universities={universitiesData?.items || []}
+              countries={countries}
+              specialties={specialtyNames}
+            />
+          )}
         </Container>
       </Box>
-
-      {/* Main Content */}
-      <Container maxWidth="lg" className="py-8">
-        <UniversityList
-          universities={mockUniversities}
-          countries={countries}
-          specialties={specialties}
-        />
-      </Container>
-    </Box>
+    </PageTransition>
   );
 }

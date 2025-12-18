@@ -1,4 +1,4 @@
-# AI Project Frontend - Итоговый обзор
+# University Catalog Frontend - Итоговый обзор
 
 ## Что было создано
 

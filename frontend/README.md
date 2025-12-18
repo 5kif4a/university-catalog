@@ -1,4 +1,4 @@
-# AI Project Frontend
+# University Catalog Frontend
 
 Modern React application built with the latest technologies.
 

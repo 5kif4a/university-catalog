@@ -1,28 +1,32 @@
 import { useState, useMemo } from 'react';
 import { Box, Typography, Grid } from '@mui/material';
+import { motion } from 'framer-motion';
 import UniversityCard from './UniversityCard';
 import UniversityFilters from './UniversityFilters';
-import type { University, UniversityFilters as Filters } from '@/types/university';
+import type { University, UniversityFilters as Filters } from '@/types/api';
 
 /**
  * UniversityList Component
  *
- * Displays a filterable list of universities
+ * Displays a filterable list of universities with smooth animations
+ * Now powered by real API data
  *
- * @param universities - Array of universities to display
+ * @param universities - Array of universities from API
  * @param countries - Available countries for filtering
  * @param specialties - Available specialties for filtering
  *
  * @example
  * <UniversityList
- *   universities={mockUniversities}
+ *   universities={universitiesData.items}
  *   countries={countries}
  *   specialties={specialties}
  * />
  *
  * Features:
  * - Filter universities by country and specialty
- * - Responsive grid layout
+ * - Stagger animations for grid items using Framer Motion
+ * - Responsive grid layout with generous spacing
+ * - Apple-style minimalist design
  * - Empty state when no results
  * - Client-side filtering with useMemo
  *
@@ -34,11 +38,7 @@ import type { University, UniversityFilters as Filters } from '@/types/universit
  * Performance:
  * - Memoized filtered results
  * - Only re-filters when dependencies change
- * - Efficient grid rendering
- *
- * State Management:
- * - Local state for filters (useState)
- * - Derived state for filtered list (useMemo)
+ * - GPU-accelerated animations
  */
 
 interface UniversityListProps {
@@ -46,6 +46,28 @@ interface UniversityListProps {
   countries: string[];
   specialties: string[];
 }
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: 'easeOut',
+    },
+  },
+};
 
 export default function UniversityList({
   universities,
@@ -62,10 +84,10 @@ export default function UniversityList({
         return false;
       }
 
-      // Filter by specialty
+      // Filter by specialty (check specialty_names from API)
       if (
         filters.specialty &&
-        !university.specialties.includes(filters.specialty)
+        !university.specialty_names.includes(filters.specialty)
       ) {
         return false;
       }
@@ -77,7 +99,16 @@ export default function UniversityList({
   return (
     <Box>
       {/* Filters Section */}
-      <Box className="mb-8 p-6 bg-white rounded-lg shadow-sm">
+      <Box
+        sx={{
+          mb: 10,
+          p: 4,
+          backgroundColor: 'background.paper',
+          borderRadius: 4,
+          border: '1px solid',
+          borderColor: 'divider',
+        }}
+      >
         <UniversityFilters
           filters={filters}
           onChange={setFilters}
@@ -87,11 +118,11 @@ export default function UniversityList({
       </Box>
 
       {/* Results Header */}
-      <Box className="mb-6">
+      <Box sx={{ mb: 6 }}>
         <Typography
           variant="h5"
           component="h2"
-          fontWeight={600}
+          sx={{ fontWeight: 500, mb: 1 }}
           color="text.primary"
           aria-live="polite"
         >
@@ -102,7 +133,7 @@ export default function UniversityList({
               } Found`}
         </Typography>
         {filteredUniversities.length > 0 && (
-          <Typography variant="body2" color="text.secondary" className="mt-1">
+          <Typography variant="body2" color="text.secondary">
             Showing all available universities matching your criteria
           </Typography>
         )}
@@ -110,17 +141,42 @@ export default function UniversityList({
 
       {/* University Grid */}
       {filteredUniversities.length > 0 ? (
-        <Grid container spacing={3}>
+        <Grid
+          container
+          spacing={4}
+          component={motion.div}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {filteredUniversities.map((university) => (
-            <Grid item xs={12} sm={6} lg={4} key={university.id}>
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              lg={4}
+              key={university.id}
+              component={motion.div}
+              variants={itemVariants}
+            >
               <UniversityCard university={university} />
             </Grid>
           ))}
         </Grid>
       ) : (
         // Empty State
-        <Box className="text-center py-12 bg-white rounded-lg shadow-sm">
-          <Typography variant="h6" color="text.secondary" className="mb-2">
+        <Box
+          sx={{
+            textAlign: 'center',
+            py: 12,
+            px: 4,
+            backgroundColor: 'background.paper',
+            borderRadius: 4,
+            border: '1px solid',
+            borderColor: 'divider',
+          }}
+        >
+          <Typography variant="h6" color="text.secondary" sx={{ mb: 1.5, fontWeight: 500 }}>
             No universities match your filters
           </Typography>
           <Typography variant="body2" color="text.secondary">

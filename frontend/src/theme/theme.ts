@@ -5,7 +5,7 @@ export const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#2563eb', // Blue
+      main: '#2563eb', // Blue - use sparingly
       light: '#3b82f6',
       dark: '#1e40af',
       contrastText: '#ffffff',
@@ -37,15 +37,15 @@ export const theme = createTheme({
       dark: '#059669',
     },
     background: {
-      default: '#f8fafc',
+      default: '#ffffff', // Pure white for Apple-style
       paper: '#ffffff',
     },
     text: {
-      primary: '#0f172a',
-      secondary: '#475569',
-      disabled: '#94a3b8',
+      primary: '#000000', // Near black for maximum contrast
+      secondary: '#6b7280',
+      disabled: '#9ca3af',
     },
-    divider: '#e2e8f0',
+    divider: 'rgba(0, 0, 0, 0.06)', // Very subtle divider
   },
   typography: {
     fontFamily: [
@@ -59,48 +59,54 @@ export const theme = createTheme({
     ].join(','),
     h1: {
       fontSize: '2.5rem',
-      fontWeight: 700,
+      fontWeight: 600, // Lighter weight for Apple-style
       letterSpacing: '-0.02em',
-      lineHeight: 1.2,
+      lineHeight: 1.3, // Increased line-height
     },
     h2: {
       fontSize: '2rem',
-      fontWeight: 700,
+      fontWeight: 600, // Reduced from 700
       letterSpacing: '-0.01em',
-      lineHeight: 1.3,
+      lineHeight: 1.4, // Increased
     },
     h3: {
       fontSize: '1.75rem',
-      fontWeight: 600,
-      letterSpacing: '-0.01em',
-      lineHeight: 1.4,
+      fontWeight: 500, // Reduced from 600
+      letterSpacing: '-0.005em', // Slightly increased spacing
+      lineHeight: 1.5, // Increased
     },
     h4: {
       fontSize: '1.5rem',
-      fontWeight: 600,
-      lineHeight: 1.4,
+      fontWeight: 500, // Reduced
+      lineHeight: 1.5, // Increased
+      letterSpacing: '0em',
     },
     h5: {
       fontSize: '1.25rem',
-      fontWeight: 600,
-      lineHeight: 1.5,
+      fontWeight: 500, // Reduced
+      lineHeight: 1.6, // Increased
+      letterSpacing: '0em',
     },
     h6: {
       fontSize: '1rem',
-      fontWeight: 600,
-      lineHeight: 1.5,
+      fontWeight: 500, // Reduced
+      lineHeight: 1.6, // Increased
+      letterSpacing: '0.005em',
     },
     body1: {
       fontSize: '1rem',
-      lineHeight: 1.6,
+      lineHeight: 1.7, // Increased for better readability
+      letterSpacing: '0.005em',
     },
     body2: {
       fontSize: '0.875rem',
-      lineHeight: 1.6,
+      lineHeight: 1.7, // Increased
+      letterSpacing: '0.005em',
     },
     button: {
       textTransform: 'none',
-      fontWeight: 500,
+      fontWeight: 400, // Reduced from 500
+      letterSpacing: '0.01em',
     },
   },
   shape: {
@@ -108,39 +114,39 @@ export const theme = createTheme({
   },
   shadows: [
     'none',
-    '0 1px 2px 0 rgb(0 0 0 / 0.05)',
-    '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
-    '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
-    '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-    '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
-    '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-    '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-    '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-    '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-    '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-    '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-    '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-    '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-    '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-    '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-    '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-    '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-    '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-    '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-    '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-    '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-    '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-    '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-    '0 25px 50px -12px rgb(0 0 0 / 0.25)',
+    '0 1px 2px rgba(0, 0, 0, 0.02)', // Much lighter shadows for Apple-style
+    '0 1px 3px rgba(0, 0, 0, 0.04)',
+    '0 2px 4px rgba(0, 0, 0, 0.04)',
+    '0 4px 8px rgba(0, 0, 0, 0.06)',
+    '0 8px 16px rgba(0, 0, 0, 0.08)',
+    '0 12px 24px rgba(0, 0, 0, 0.1)',
+    '0 16px 32px rgba(0, 0, 0, 0.12)',
+    '0 20px 40px rgba(0, 0, 0, 0.14)',
+    '0 24px 48px rgba(0, 0, 0, 0.16)',
+    '0 24px 48px rgba(0, 0, 0, 0.16)',
+    '0 24px 48px rgba(0, 0, 0, 0.16)',
+    '0 24px 48px rgba(0, 0, 0, 0.16)',
+    '0 24px 48px rgba(0, 0, 0, 0.16)',
+    '0 24px 48px rgba(0, 0, 0, 0.16)',
+    '0 24px 48px rgba(0, 0, 0, 0.16)',
+    '0 24px 48px rgba(0, 0, 0, 0.16)',
+    '0 24px 48px rgba(0, 0, 0, 0.16)',
+    '0 24px 48px rgba(0, 0, 0, 0.16)',
+    '0 24px 48px rgba(0, 0, 0, 0.16)',
+    '0 24px 48px rgba(0, 0, 0, 0.16)',
+    '0 24px 48px rgba(0, 0, 0, 0.16)',
+    '0 24px 48px rgba(0, 0, 0, 0.16)',
+    '0 24px 48px rgba(0, 0, 0, 0.16)',
+    '0 24px 48px rgba(0, 0, 0, 0.16)',
   ],
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 8,
-          padding: '8px 16px',
-          fontSize: '0.875rem',
-          fontWeight: 500,
+          borderRadius: 12, // More rounded for Apple-style
+          padding: '12px 24px', // More padding
+          fontSize: '0.9375rem', // Slightly larger
+          fontWeight: 400, // Lighter weight
           boxShadow: 'none',
           '&:hover': {
             boxShadow: 'none',
@@ -148,7 +154,15 @@ export const theme = createTheme({
         },
         contained: {
           '&:hover': {
-            boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)', // Lighter shadow
+          },
+        },
+        outlined: {
+          borderWidth: '1px', // Thinner border
+          borderColor: 'rgba(0, 0, 0, 0.12)',
+          '&:hover': {
+            borderWidth: '1px',
+            backgroundColor: 'rgba(0, 0, 0, 0.02)',
           },
         },
       },
@@ -156,24 +170,25 @@ export const theme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: 12,
-          boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
+          borderRadius: 16, // More rounded
+          boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04)', // Much lighter
+          border: '1px solid rgba(0, 0, 0, 0.06)', // Subtle border
         },
       },
     },
     MuiPaper: {
       styleOverrides: {
         root: {
-          borderRadius: 8,
+          borderRadius: 12, // More rounded
         },
         elevation1: {
-          boxShadow: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+          boxShadow: '0 1px 2px rgba(0, 0, 0, 0.02)', // Much lighter
         },
         elevation2: {
-          boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
+          boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04)',
         },
         elevation3: {
-          boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.04)',
         },
       },
     },
@@ -181,7 +196,17 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           '& .MuiOutlinedInput-root': {
-            borderRadius: 8,
+            borderRadius: 12, // More rounded
+            '& fieldset': {
+              borderWidth: '1px', // Thinner border
+              borderColor: 'rgba(0, 0, 0, 0.12)', // Lighter border
+            },
+            '&:hover fieldset': {
+              borderColor: 'rgba(0, 0, 0, 0.2)',
+            },
+            '&.Mui-focused fieldset': {
+              borderWidth: '1.5px', // Slightly thicker on focus
+            },
           },
         },
       },
@@ -189,7 +214,16 @@ export const theme = createTheme({
     MuiAppBar: {
       styleOverrides: {
         root: {
-          boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
+          boxShadow: 'none', // No shadow for cleaner look
+          borderBottom: '1px solid rgba(0, 0, 0, 0.06)', // Subtle border instead
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8, // More rounded
+          fontWeight: 400, // Lighter weight
         },
       },
     },
