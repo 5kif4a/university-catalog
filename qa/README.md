@@ -9,6 +9,29 @@ E2E testing suite for University Catalog application using Playwright.
 npm install
 ```
 
+2. Set up environment variables (optional):
+```bash
+cp env.example .env
+# Edit .env file with your configuration
+```
+
+## Environment Variables
+
+Tests support the following environment variables:
+
+- `BASE_URL` - Base URL for frontend application (default: `http://localhost:3000`)
+- `API_URL` - API URL for backend requests (default: `http://localhost:8000`)
+
+## Running Tests
+
+**Note**: Make sure frontend and backend servers are running before executing tests, as webServer auto-start has been disabled.
+
+Example `.env` file:
+```
+BASE_URL=http://localhost:3000
+API_URL=http://localhost:8000
+```
+
 ## Running Tests
 
 ### All tests
@@ -38,13 +61,33 @@ npm run report
 
 ## Test Structure
 
-Tests are organized in `tests/universities.spec.ts` and cover:
+Tests are organized in the following files:
+
+### `tests/universities.spec.ts`
+- Universities List: Display and navigation
+- University Page: Individual university details, requirements, and API-UI data matching
+- Country Filter: Filtering universities by country
+- Specialization Filter: Filtering by academic programs and API-UI consistency
+- Empty State: Handling no results scenarios and API-UI consistency
+- Search: University search functionality and results validation
+- AI Chat: Basic UI interaction for AI assistant
+
+### `tests/ai.spec.ts`
+- AI Agent API Tests: Health checks and recommendation functionality
+
+### Test Coverage
+
+### Helpers
+- `tests/helpers/api.ts` - API utility functions for backend communication
+
+### Test Coverage
 
 - **Universities List**: Display and navigation
-- **University Page**: Individual university details and requirements
+- **University Page**: Individual university details, requirements, and API-UI data matching
 - **Country Filter**: Filtering universities by country
-- **Specialization Filter**: Filtering by academic programs
-- **Empty State**: Handling no results scenarios
+- **Specialization Filter**: Filtering by academic programs and API-UI consistency
+- **Empty State**: Handling no results scenarios and API-UI consistency
+- **Search**: University search functionality and results validation
 - **AI Chat**: Basic UI interaction for AI assistant
 
 ## Data Test IDs

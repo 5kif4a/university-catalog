@@ -21,7 +21,7 @@ This document outlines the QA workflow for the University Catalog project, focus
   - University detail container (`[data-testid="university-detail"]`)
   - Requirements section (`[data-testid="requirements-section"]`)
   - Programs/Specializations section (`[data-testid="programs-section"]`)
-- **Edge Cases**: Invalid university ID, missing data
+- **Edge Cases**: Invalid university ID, missing data, API-UI data consistency
 
 #### 3. Country Filter (`country-filter-test`)
 - **Purpose**: Validate filtering functionality by country
@@ -37,17 +37,32 @@ This document outlines the QA workflow for the University Catalog project, focus
   - Specialization filter (`[data-testid="specialization-filter"]`)
   - Multiple selection capability
   - Filter combination with country filter
-- **Edge Cases**: No matches, multiple selections, filter conflicts
+- **Edge Cases**: No matches, multiple selections, filter conflicts, API-UI data consistency
 
 #### 5. Empty State (`empty-state-test`)
 - **Purpose**: Ensure graceful handling when no results are found
 - **Key Elements**:
   - Empty state container (`[data-testid="empty-state"]`)
   - Empty state message (`[data-testid="empty-state-message"]`)
-- **Triggers**: No filter matches, empty search results, API failures
+- **Triggers**: No filter matches, empty search results, API failures, API-UI data consistency
 
-#### 6. AI Chat Interaction (`ai-chat-test`)
+#### 6. Search (`search-test`)
+- **Purpose**: Validate university search functionality
+- **Key Elements**:
+  - Search input (`[data-testid="search-input"]`)
+  - Search button (`[data-testid="search-button"]`)
+  - Search results validation
+- **Edge Cases**: No results, partial matches, case sensitivity
+
+#### 7. AI Chat Interaction (`ai-chat-test`)
 - **Purpose**: Basic UI validation for AI assistant component
+
+#### 8. AI Agent API (`ai-spec-test`)
+- **Purpose**: Validate AI Agent API endpoints functionality
+- **Key Elements**:
+  - Health check endpoint (`GET /api/ai/health`)
+  - Recommendations endpoint (`POST /api/ai/recommend`)
+- **Edge Cases**: API availability, response format validation
 - **Key Elements**:
   - Chat container (`[data-testid="ai-chat"]`)
   - Chat input field (`[data-testid="chat-input"]`)
@@ -58,9 +73,16 @@ This document outlines the QA workflow for the University Catalog project, focus
 ### Testing Strategy
 
 #### Test Organization
-- **File Structure**: `tests/universities.spec.ts`
+- **File Structure**:
+  - `tests/universities.spec.ts` - UI and integration tests
+  - `tests/ai.spec.ts` - AI Agent API tests
+  - `tests/helpers/api.ts` - API utility functions
 - **Grouping**: Tests grouped by feature area using `test.describe()`
 - **Selectors**: Exclusive use of `data-testid` attributes for reliable selection
+
+#### Environment Setup
+- **Manual Server Start**: Frontend and backend must be started manually before test execution
+- **No Auto-webServer**: webServer configuration has been removed from playwright.config.js
 
 #### Execution Strategy
 - **Parallel Execution**: Tests run in parallel for efficiency

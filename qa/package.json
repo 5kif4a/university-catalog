@@ -11,6 +11,7 @@
     "install-deps": "npm install"
   },
   "devDependencies": {
-    "@playwright/test": "^1.40.1"
+    "@playwright/test": "^1.40.1",
+    "dotenv": "^16.3.1"
   }
 }

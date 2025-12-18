@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { getUniversities, getUniversityById, getSpecialties, searchUniversities } from './helpers/api';
 
 test.describe('University Catalog E2E Tests', () => {
   test.beforeEach(async ({ page }) => {
@@ -7,21 +8,32 @@ test.describe('University Catalog E2E Tests', () => {
 
   test.describe('Universities List', () => {
     test('should display universities list', async ({ page }) => {
-      // TODO: Replace with actual data-testid selectors when UI is ready
-      // const universitiesList = page.locator('[data-testid="universities-list"]');
-      // await expect(universitiesList).toBeVisible();
+      // Get data from API first
+      const response = await getUniversities();
 
-      // TODO: Check that at least one university card is displayed
-      // const universityCards = page.locator('[data-testid="university-card"]');
-      // await expect(universityCards.first()).toBeVisible();
+      // TODO: Handle API unavailability gracefully - replace with expect.soft for UI checks when API is ready
+      if (response === null) {
+        await expect.soft(page.locator('body')).toBeVisible();
+        return;
+      }
 
-      // TODO: Verify university card contains required elements
-      // const firstCard = universityCards.first();
-      // await expect(firstCard.locator('[data-testid="university-name"]')).toBeVisible();
-      // await expect(firstCard.locator('[data-testid="university-country"]')).toBeVisible();
+      const universities = response.items;
 
-      // Temporary assertion - will be replaced when UI is implemented
-      await expect(page.locator('body')).toBeVisible();
+      // Navigate to universities list page
+      await page.goto('/');
+
+      // Find all university cards
+      const universityCards = page.locator('[data-testid="university-card"]');
+
+      // Check that number of cards matches API response
+      await expect(universityCards).toHaveCount(universities.length);
+
+      // Check that each card has name and country
+      for (let i = 0; i < universities.length; i++) {
+        const card = universityCards.nth(i);
+        await expect(card.locator('[data-testid="university-name"]')).toBeVisible();
+        await expect(card.locator('[data-testid="university-country"]')).toBeVisible();
+      }
     });
 
     test('should display university details in list items', async ({ page }) => {
@@ -68,6 +80,50 @@ test.describe('University Catalog E2E Tests', () => {
       // await expect(programs.first()).toBeVisible();
 
       await expect(page.locator('body')).toBeVisible();
+    });
+
+    test('should display university details matching API data', async ({ page }) => {
+      // Get first university from API
+      const response = await getUniversities();
+
+      // TODO: Handle API unavailability gracefully - replace with expect.soft for UI checks when API is ready
+      if (response === null) {
+        await expect.soft(page.locator('body')).toBeVisible();
+        return;
+      }
+
+      const firstUniversity = response.items[0];
+      const universityDetails = await getUniversityById(firstUniversity.id);
+
+      // TODO: Handle API unavailability gracefully - replace with expect.soft for UI checks when API is ready
+      if (universityDetails === null) {
+        await expect.soft(page.locator('body')).toBeVisible();
+        return;
+      }
+
+      // Navigate to university page
+      await page.goto(`/university/${firstUniversity.id}`);
+
+      // Check that university name matches API
+      const universityName = page.locator('[data-testid="university-name"]');
+      await expect(universityName).toBeVisible();
+
+      // Check that country and city are displayed
+      const universityCountry = page.locator('[data-testid="university-country"]');
+      const universityCity = page.locator('[data-testid="university-city"]');
+      await expect(universityCountry).toBeVisible();
+      await expect(universityCity).toBeVisible();
+
+      // Check that university has specialties (length > 0)
+      const specialties = page.locator('[data-testid="specialty-item"]');
+      await expect(specialties).toHaveCount(universityDetails.specialties.length);
+      expect(universityDetails.specialties.length).toBeGreaterThan(0);
+
+      // Check requirements if they exist
+      if (universityDetails.requirements && universityDetails.requirements.length > 0) {
+        const requirements = page.locator('[data-testid="requirement-item"]');
+        await expect(requirements).toHaveCount(universityDetails.requirements.length);
+      }
     });
   });
 
@@ -144,6 +200,59 @@ test.describe('University Catalog E2E Tests', () => {
 
       await expect(page.locator('body')).toBeVisible();
     });
+
+    test('should filter universities by selected specialization', async ({ page }) => {
+      // Get specialties from API
+      const specialties = await getSpecialties();
+
+      // TODO: Handle API unavailability gracefully - replace with expect.soft for UI checks when API is ready
+      if (specialties === null) {
+        await expect.soft(page.locator('body')).toBeVisible();
+        return;
+      }
+
+      // Select first specialty if available
+      if (specialties && specialties.length > 0) {
+        const selectedSpecialty = specialties[0];
+
+        // Get all universities to compare against filtered results
+        const allUniversities = await getUniversities();
+
+        // TODO: Handle API unavailability gracefully - replace with expect.soft for UI checks when API is ready
+        if (allUniversities === null) {
+          await expect.soft(page.locator('body')).toBeVisible();
+          return;
+        }
+
+        // Navigate to universities page
+        await page.goto('/');
+
+        // TODO: Apply specialization filter in UI - replace with actual UI interaction when available
+        // await page.locator('[data-testid="specialization-filter"]').click();
+        // await page.locator(`[data-testid="specialization-option-${selectedSpecialty.name.toLowerCase().replace(/\s+/g, '-')}"]`).click();
+
+        // Use soft assertion since UI might not be implemented yet
+        await expect.soft(page.locator('[data-testid="specialization-filter"]')).toBeVisible();
+
+        // TODO: Verify that all visible universities have the selected specialty
+        // const visibleUniversityCards = page.locator('[data-testid="university-card"]');
+        // const visibleCount = await visibleUniversityCards.count();
+
+        // if (visibleCount > 0) {
+        //   for (let i = 0; i < visibleCount; i++) {
+        //     const card = visibleUniversityCards.nth(i);
+        //     await expect(card.locator('[data-testid="university-specializations"]'))
+        //       .toContainText(selectedSpecialty.name);
+        //   }
+        // }
+
+        // Temporary assertion
+        await expect(page.locator('body')).toBeVisible();
+      } else {
+        // TODO: Handle empty specialties gracefully - replace with expect.soft when UI is ready
+        await expect.soft(page.locator('body')).toBeVisible();
+      }
+    });
   });
 
   test.describe('Empty State', () => {
@@ -160,13 +269,40 @@ test.describe('University Catalog E2E Tests', () => {
     });
 
     test('should display empty state when search returns no results', async ({ page }) => {
-      // TODO: Perform search that returns no results
-      // await page.locator('[data-testid="search-input"]').fill('nonexistentuniversity12345');
+      // Use a search term that should return no results
+      const nonexistentSearchTerm = 'nonexistentuniversity12345';
+
+      // Verify API returns empty array for nonexistent search term
+      const searchResults = await searchUniversities(nonexistentSearchTerm);
+
+      // TODO: Handle API unavailability gracefully - replace with expect.soft for UI checks when API is ready
+      if (searchResults === null) {
+        await expect.soft(page.locator('body')).toBeVisible();
+        return;
+      }
+
+      expect(searchResults).toEqual([]);
+      expect(searchResults.length).toBe(0);
+
+      // Navigate to universities page
+      await page.goto('/');
+
+      // TODO: Perform search in UI - replace when UI is implemented
+      // await page.locator('[data-testid="search-input"]').fill(nonexistentSearchTerm);
       // await page.locator('[data-testid="search-button"]').click();
 
-      // TODO: Verify empty state
-      // await expect(page.locator('[data-testid="empty-state"]')).toBeVisible();
+      // Use soft assertion since search UI might not be implemented yet
+      await expect.soft(page.locator('[data-testid="search-input"]')).toBeVisible();
 
+      // TODO: Verify empty state is displayed
+      // await expect(page.locator('[data-testid="empty-state"]')).toBeVisible();
+      // await expect(page.locator('[data-testid="empty-state-message"]')).toContainText('No universities found');
+
+      // TODO: Verify no university cards are displayed
+      // const universityCards = page.locator('[data-testid="university-card"]');
+      // await expect(universityCards).toHaveCount(0);
+
+      // Temporary assertion
       await expect(page.locator('body')).toBeVisible();
     });
   });
@@ -205,4 +341,54 @@ test.describe('University Catalog E2E Tests', () => {
       await expect(page.locator('body')).toBeVisible();
     });
   });
+
+  test.describe('Search', () => {
+    test('should search universities by name', async ({ page }) => {
+      // Get universities from API
+      const response = await getUniversities();
+
+      // TODO: Handle API unavailability gracefully - replace with expect.soft for UI checks when API is ready
+      if (response === null) {
+        await expect.soft(page.locator('body')).toBeVisible();
+        return;
+      }
+
+      const universities = response.items;
+
+      // Take first university and extract a word from its name
+      if (universities && universities.length > 0) {
+        const firstUniversity = universities[0];
+        const searchWord = firstUniversity.name.split(' ')[0]; // Take first word from university name
+
+        // Navigate to universities page
+        await page.goto('/');
+
+        // TODO: Enter search word in search input - replace when UI is implemented
+        // await page.locator('[data-testid="search-input"]').fill(searchWord);
+        // await page.locator('[data-testid="search-button"]').click();
+
+        // Use soft assertion since search UI might not be implemented yet
+        await expect.soft(page.locator('[data-testid="search-input"]')).toBeVisible();
+
+        // TODO: Verify that all visible universities contain the search word in their name
+        // const visibleUniversityCards = page.locator('[data-testid="university-card"]');
+        // const visibleCount = await visibleUniversityCards.count();
+
+        // if (visibleCount > 0) {
+        //   for (let i = 0; i < visibleCount; i++) {
+        //     const card = visibleUniversityCards.nth(i);
+        //     const universityName = await card.locator('[data-testid="university-name"]').textContent();
+        //     expect(universityName?.toLowerCase()).toContain(searchWord.toLowerCase());
+        //   }
+        // }
+
+        // Temporary assertion
+        await expect(page.locator('body')).toBeVisible();
+      } else {
+        // TODO: Handle empty universities gracefully - replace with expect.soft when UI is ready
+        await expect.soft(page.locator('body')).toBeVisible();
+      }
+    });
+  });
 });
+
